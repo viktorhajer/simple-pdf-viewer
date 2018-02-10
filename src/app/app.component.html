@@ -1,20 +1,132 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<header>
+  <div class="line">&nbsp;</div>
+  <div class="flex-container">
+    <img src="assets/icon.png" />
+    <h1>Simple PDF Viewer</h1>
+  </div>
+</header>
 
+<main>
+  <section id="tools">
+
+    <!-- Main Menu -->
+    <div id="mainMenu">
+      <div *ngIf="!backButtonVisible">
+        <div class="mainMenuItem" [class.active]="isActiveMenu(1)" (click)="setActiveMenu(1)">Document</div>
+        <div class="mainMenuItem" [class.active]="isActiveMenu(2)" (click)="setActiveMenu(2)">Table of Content</div>
+        <div class="mainMenuItem" [class.active]="isActiveMenu(3)" (click)="setActiveMenu(3)">Navigation</div>
+        <div class="mainMenuItem" [class.active]="isActiveMenu(4)" (click)="setActiveMenu(4)">Zooming</div>
+        <div class="mainMenuItem" [class.active]="isActiveMenu(5)" (click)="setActiveMenu(5)">Rotation</div>
+        <div class="mainMenuItem" [class.active]="isActiveMenu(6)" (click)="setActiveMenu(6)">Searching</div>
+      </div>
+      <div *ngIf="backButtonVisible">
+        <div class="mainMenuItem" [class.active]="isActiveMenu(1)" (click)="setActiveMenu(1)"><span class="fa fa-angle-double-left"></span>Back</div>
+      </div>
+    </div>
+
+    <!-- Sub Menus -->
+    <div id="subMenus">
+      <!-- Document -->
+      <div class="subMenu" *ngIf="isActiveMenu(1)">
+          <div class="subMenuItem" (click)="urlField.click()">Open Document...</div>
+          <input style="display: none;" #urlField type="file" (change)="openDocument(urlField.files)">
+      </div>
+      <!-- Table of Content -->
+      <div class="subMenu" *ngIf="isActiveMenu(2)">
+        <div id="outline" *ngIf="pdfViewer.hasOutline()">
+          <h2>Table of Content</h2>
+          <ul *ngFor="let item of pdfViewer.getOutline()" class="outline-list">
+            <li>
+              <a (click)="pdfViewer.navigateToDestination(item.dest)" class="outline-main-item">{{ item.title }}</a>
+              <ul class="outline-sub-item" *ngFor="let child of item.items">
+                <li><a (click)="pdfViewer.navigateToDestination(child.dest)">{{ child.title }}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Navigation -->
+      <div class="subMenu" *ngIf="isActiveMenu(3)">
+        <div class="subMenuItemGroup">
+          <div class="subMenuItem" (click)="pdfViewer.firstPage()">First Page</div>
+          <div class="subMenuItem" (click)="pdfViewer.lastPage()">Last Page</div>
+          <div class="clear"></div>
+        </div>
+          <div class="subMenuItemGroup">
+          <div class="subMenuItem" (click)="pdfViewer.prevPage()">Previous Page</div>
+          <div class="subMenuItem" (click)="pdfViewer.nextPage()">Next Page</div>
+          <div class="clear"></div>
+        </div>
+        <div class="subMenuItemGroup">
+          <input class="small" type="number" pattern="-?[0-9]*(\.[0-9]+)?" [(ngModel)]="pageBox" size="5" (keyup.enter)="pdfViewer.navigateToPage(pageBox)" placeholder="Page..">
+          <div class="subMenuItem fa fa-search" (click)="pdfViewer.navigateToPage(pageBox)"></div>
+          <div class="clear"></div>
+        </div>
+        <p>
+          Number of Pages: {{pdfViewer.getNumberOfPages()}} <br/> 
+          Actual page: {{pdfViewer.getCurrentPage()}}
+        </p>
+      </div>
+      <!-- Zooming -->
+      <div class="subMenu" *ngIf="isActiveMenu(4)">
+        <div class="subMenuItemGroup">
+          <div class="subMenuItem" (click)="pdfViewer.zoomIn()">In</div>
+          <div class="subMenuItem" (click)="pdfViewer.setZoom(0.5)">50%</div>
+          <div class="subMenuItem" (click)="pdfViewer.zoomReset()">100%</div>
+          <div class="subMenuItem" (click)="pdfViewer.zoomOut()">Out</div>
+          <div class="clear"></div>
+        </div>
+        <div class="subMenuItemGroup">
+          <div class="subMenuItem" (click)="pdfViewer.zoomPageWidth()">Width</div>
+          <div class="subMenuItem" (click)="pdfViewer.zoomFullPage()">Full</div>
+          <div class="subMenuItem" (click)="pdfViewer.zoomPageHeight()">Height</div>
+          <div class="clear"></div>
+        </div>
+          <div class="subMenuItemGroup">
+            <input class="small" type="number" pattern="-?[0-9]*(\.[0-9]+)?" [(ngModel)]="zoomBox" size="5" (keyup.enter)="pdfViewer.setZoomInPercent(zoomBox)" placeholder="Zoom...">
+            <div class="subMenuItem fa fa-search" (click)="pdfViewer.setZoomInPercent(zoomBox)"></div>
+            <div class="clear"></div>
+          </div>
+          <p>
+            Actual zoom value: {{getZoomPercent()}} % <br/>
+            Constraint: 5% <= Zoom <= 500%
+          </p>
+      </div>
+      <!-- Rotation -->
+      <div class="subMenu" *ngIf="isActiveMenu(5)">
+        <div class="subMenuItemGroup">
+          <div class="subMenuItem" (click)="pdfViewer.turnLeft()"><span class="fa fa-rotate-left"></span></div>
+          <div class="subMenuItem" (click)="pdfViewer.resetRotation()">Reset</div>
+          <div class="subMenuItem" (click)="pdfViewer.turnRight()"><span class="fa fa-rotate-right"></span></div>
+          <div class="clear"></div>
+        </div>
+        <p>Actual rotation: {{pdfViewer.getRotation()}} &deg;</p>
+      </div>
+      <!-- Searching -->
+      <div class="subMenu" *ngIf="isActiveMenu(6)">
+        <div class="subMenuItemGroup">
+          <input type="input" [(ngModel)]="searchBox" (keyup.enter)="searchText(searchBox)" placeholder="Type..." value="{{lastSearch}}">
+          <div class="subMenuItem fa fa-search" (click)="searchText(searchBox)"></div>
+          <div class="clear"></div>
+        </div>
+        <div class="subMenuItemGroup" *ngIf="pdfViewer.hasMatches()">
+          <div class="subMenuItem" (click)="pdfViewer.previousMatch()">Previous</div>
+          <div class="subMenuItem" (click)="pdfViewer.nextMatch()">Next</div>
+          <div class="clear"></div>
+        </div>
+        <p *ngIf="!pdfViewer.isSearching()">Number of matches: {{pdfViewer.getNumberOfMatches()}}</p>
+        <p *ngIf="pdfViewer.isSearching()">Searching...</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Simple PDF Viewer Container -->
+  <section id="viewer">
+    <simple-pdf-viewer #pdfViewer [src]="'assets/example/pdf-test.pdf'" (onProgress)="onProgress($event)" (onError)="onError($event)"></simple-pdf-viewer>
+  </section>
+</main>
+
+<footer>
+  <p>{{pdfViewer.getCurrentPage() + ' / ' + pdfViewer.getNumberOfPages()}} ({{getZoomPercent()}}%)</p>
+</footer>

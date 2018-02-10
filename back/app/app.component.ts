@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {SimplePdfViewerComponent} from '../simple-pdf-viewer/simplePdfViewer.component';
 
-const OUTLINE_MENU = 2;
 
 @Component({
   selector: 'app-root',
@@ -10,24 +9,30 @@ const OUTLINE_MENU = 2;
 })
 export class AppComponent {
 
+  // Examples
+  src1 = 'assets/example/pdf-test.pdf';
+
   renderedPercent = 0;
-  activeMenu = 1;
-  backButtonVisible = false;
+  activeMenuID = 3;
+  outline = false;
   errorMsg = '';
   lastSearch = '';
 
   @ViewChild(SimplePdfViewerComponent) private pdfComponent: SimplePdfViewerComponent;
 
-  isActiveMenu(activeMenu: number): boolean {
-    return this.pdfComponent.isDocumentLoaded() && this.activeMenu === activeMenu;
+  isActiveMenu(activeMenuID: number): boolean {
+    return this.pdfComponent.isDocumentLoaded() && this.activeMenuID === activeMenuID;
   }
 
   setActiveMenu(activeMenuID: number) {
-    this.activeMenu = activeMenuID;
-    if(activeMenuID == OUTLINE_MENU) {
-      this.backButtonVisible = true;
+    this.activeMenuID = activeMenuID;
+  }
+
+  toggleOutline() {
+    if (this.pdfComponent.hasOutline()) {
+      this.outline = !this.outline;
     } else {
-      this.backButtonVisible =false;
+      alert('No outline');
     }
   }
 
@@ -42,6 +47,7 @@ export class AppComponent {
 
   openDocument(documents: File[]) {
     this.errorMsg = '';
+    this.outline = false;
     if (documents) {
       const fileReader: FileReader = new FileReader();
       fileReader.onload = () => {
@@ -55,7 +61,7 @@ export class AppComponent {
     this.lastSearch = this.pdfComponent.search(text);
   }
 
-  onError(event: any) {
+  error(event: any) {
     this.errorMsg = 'Failed to load the document';
   }
 }
