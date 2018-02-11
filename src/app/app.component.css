@@ -182,36 +182,36 @@ footer p {
   text-shadow: 2px 2px 3px rgba(0,0,0,0.5);
 }
 
-#outline {
+.outline {
   margin: 0;
   padding: 0;
   color: #aaaaaa;
   overflow: auto;
-  height: calc(88vh - 210px);
+  height: calc(70vh - 210px);
 }
-#outline h2 {
+.outline h2 {
   margin: 0 0 10px 0;
   padding: 0;
   font-weight: bold;
   font-size: 18px;
   color: #dddddd;
 }
-#outline ul {
+.outline ul {
   margin: 0;
   padding: 5px 1vw;
 }
-#outline li {
+.outline li {
   font-size: 14px;
 }
-#outline .outline-main-item {
+.outline .outline-main-item {
   font-weight: bold;
   color: #dddddd;
 }
-#outline a {
+.outline a {
   font-size: 14px;
   cursor: pointer;
   text-decoration: none;
 }
-#outline a:hover {
+.outline a:hover {
   color: #346680;
 }

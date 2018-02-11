@@ -14,6 +14,7 @@
       <div *ngIf="!backButtonVisible">
         <div class="mainMenuItem" [class.active]="isActiveMenu(1)" (click)="setActiveMenu(1)">Document</div>
         <div *ngIf="pdfViewer.isDocumentLoaded()">
+          <div class="mainMenuItem" [class.active]="isActiveMenu(7)" (click)="setActiveMenu(7)">Information</div>
           <div class="mainMenuItem" [class.active]="isActiveMenu(2)" (click)="setActiveMenu(2)">Table of Content</div>
           <div class="mainMenuItem" [class.active]="isActiveMenu(3)" (click)="setActiveMenu(3)">Navigation</div>
           <div class="mainMenuItem" [class.active]="isActiveMenu(4)" (click)="setActiveMenu(4)">Zooming</div>
@@ -44,7 +45,7 @@
       </div>
       <!-- Table of Content -->
       <div class="subMenu" *ngIf="isActiveMenu(2)">
-        <div id="outline" *ngIf="pdfViewer.hasOutline()">
+        <div class="outline" *ngIf="pdfViewer.hasOutline()">
           <h2>Table of Content</h2>
           <ul *ngFor="let item of pdfViewer.getOutline()" class="outline-list">
             <li>
@@ -130,6 +131,15 @@
         </div>
         <p *ngIf="!pdfViewer.isSearching()">Number of matches: {{pdfViewer.getNumberOfMatches()}}</p>
         <p *ngIf="pdfViewer.isSearching()">Searching...</p>
+      </div>
+      <!-- Information -->
+      <div class="subMenu" *ngIf="isActiveMenu(7)">
+          <div class="outline">
+            <ul class="outline-list" *ngFor="let info of pdfViewer.getDocumentInformation()">
+              <li class="outline-main-item">{{info.key}}:</li>
+              <li class="outline-sub-item">{{info.value}}</li>
+            </ul>
+          </div>
       </div>
     </div>
 

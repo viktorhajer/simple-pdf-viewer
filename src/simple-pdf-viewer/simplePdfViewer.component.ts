@@ -9,6 +9,7 @@ import PDFPageProxy = PDF.PDFPageProxy;
 import PDFPageViewport = PDF.PDFPageViewport;
 import PDFSource = PDF.PDFSource;
 import PDFTreeNode = PDF.PDFTreeNode;
+import PDFInfo = PDF.PDFInfo;
 
 declare var require: any;
 
@@ -17,6 +18,19 @@ export enum SearchState {
   NOT_FOUND,
   WRAPPED,
   PENDING
+}
+
+export class SimpleDocumentInfo {
+  constructor(public key: string, public value: string){};
+}
+
+export class SimpleOutlineNode implements PDFTreeNode {
+  title: string;
+  dest: any;
+  items: SimpleOutlineNode[];
+  bold: boolean;
+  italic: boolean;
+  color: number[];
 }
 
 enum ScalePriority {
@@ -71,7 +85,8 @@ export class SimplePdfViewerComponent implements OnInit {
   private loaded: boolean = false;
   private currentPage: number = 1;
   private numberOfPages: number = 1;
-  private outline: PDFTreeNode[] = [];
+  private outline: SimpleOutlineNode[] = [];
+  private information: SimpleDocumentInfo[];
   private zoom: number = 1.0;
   private zoom_open: string = SimplePdfViewerComponent.ZOOM_PAGE;
   private rotation: number = 0;
@@ -245,17 +260,23 @@ export class SimplePdfViewerComponent implements OnInit {
         this.pdfViewer.currentScaleValue = SimplePdfViewerComponent.PDF_VIEWER_DEFAULT_SCALE;
         this.pdfLinkService.setDocument(pdfDocument, null);
         this.pdf = pdfDocument;
-        this.pdf.getOutline().then((outline: PDFTreeNode[]) => {
+        this.information = [];
+        this.outline = null;
+        this.pdf.getOutline().then((outline: SimpleOutlineNode[]) => {
           this.outline = outline;
         });
-
-        this.currentPage = 1;
+        this.pdf.getMetadata().then(information => {
+          Object.getOwnPropertyNames(information.info).forEach(key => {
+            this.information.push(new SimpleDocumentInfo(key, information.info[key]));
+          });
+          // Meta: info.metadata
+        });
         this.numberOfPages = this.pdf.numPages;
         this.loaded = true;
       }, (error: any) => {
-        this.currentPage = 1;
         this.numberOfPages = 1;
         this.zoom = 1;
+        this.information = [];
         this.onError.emit(error);
       });
     }
@@ -267,6 +288,14 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   private getContainer(): HTMLElement {
     return this.element.nativeElement.querySelector('div') as HTMLElement;
+  }
+
+  /**
+   * Returns the basic information about the PDF document
+   * 
+   */
+  public getDocumentInformation(): SimpleDocumentInfo[] {
+    return this.loaded && !!this.information ? this.information : [];
   }
 
   /* ***************************************************
@@ -581,10 +610,10 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns outline / table of content in tree structure
-   * @returns {any[]|Array} the outline of the document
+   * @returns {SimpleOutlineNode} the outline of the document
    */
-  public getOutline(): PDFTreeNode[] {
-    return this.outline ? this.outline : [];
+  public getOutline(): SimpleOutlineNode[] {
+    return this.hasOutline() ? this.outline : [];
   }
 
   /**
