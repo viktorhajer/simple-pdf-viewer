@@ -33,7 +33,7 @@ if (typeof window !== 'undefined') {
 }
 
 /**
- * PDF Viewer component created by SET
+ * Simple PDF Viewer component
  */
 @Component({
   selector: 'simple-pdf-viewer',
@@ -41,6 +41,11 @@ if (typeof window !== 'undefined') {
   styleUrls: ['./simplePdfViewer.component.css']
 })
 export class SimplePdfViewerComponent implements OnInit {
+
+  public static readonly ZOOM_PAGE: string = 'page';
+  public static readonly ZOOM_PAGE_WIDTH: string = 'width';
+  public static readonly ZOOM_PAGE_HEIGHT: string = 'height';
+  private static readonly ZOOM_PERCENT: string = 'percent';
 
   private static readonly CSS_UNITS: number = 96.0 / 72.0;
   private static readonly PAGE_RESIZE_BORDER_HEIGHT: number = 30;
@@ -57,29 +62,20 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   @Input() src: string | Uint8Array | PDFSource;
 
-  /**
-   * The document will be opened at this page first (Optional)
-   * @type {number}
-   */
-  @Input() startPage: number = 1;
-
-  /**
-   * Disable the rendering of the text layer (Optional)
-   * @type {boolean}
-   */
-  @Input() disableTextLayer: boolean = false;
-
   @Output('onLoadComplete') onLoadComplete = new EventEmitter<PDFDocumentProxy>();
   @Output('onError') onError = new EventEmitter<any>();
   @Output('onProgress') onProgress = new EventEmitter<PDFProgressData>();
   @Output('onSearchStateChange') onSearchStateChange = new EventEmitter<SearchState>();
 
+  private startPage: number = 1;
   private loaded: boolean = false;
   private currentPage: number = 1;
   private numberOfPages: number = 1;
   private outline: PDFTreeNode[] = [];
   private zoom: number = 1.0;
+  private zoom_open: string = SimplePdfViewerComponent.ZOOM_PAGE;
   private rotation: number = 0;
+  private disableTextLayer: boolean = false;
 
   private pdf: PDFDocumentProxy;
   private pdfLinkService: any;
@@ -104,6 +100,7 @@ export class SimplePdfViewerComponent implements OnInit {
         PDFJS.workerSrc = workerUrl;
       }
       this.initPDFJS();
+      this.setAndParseSrc(this.src);
       this.loadFile();
     }
   }
@@ -111,16 +108,13 @@ export class SimplePdfViewerComponent implements OnInit {
   /**
    * Open a PDF document at the specified page (at the first page by default)
    * @param src Source of the PDF document
-   * @param page The specified page where should start
+   * @param page The specified page where should start, default: 1
+   * @param zoom The specified zoom value, default: full page
    */
-  public openDocument(src: string | Uint8Array | PDFSource, page?: number): void {
-    if (page) {
-      this.startPage = parseInt(`${page}`, 10);
-    }
-    if (!page || !this.startPage) {
-      this.startPage = 1;
-    }
-    this.src = src;
+  public openDocument(src: string | Uint8Array | PDFSource, page: number = 1, zoom: number | string = 'page'): void {
+    this.parsePageParameter(`page=${page}`);
+    this.parseZoomParameter(`zoom=${zoom}`);
+    this.setAndParseSrc(src);
     if (this.pdfFindController) {
       this.pdfFindController.reset();
     }
@@ -139,11 +133,12 @@ export class SimplePdfViewerComponent implements OnInit {
    * Init PDFjs releated entries
    */
   private initPDFJS() {
+    const container = this.getContainer();
     (<any>PDFJS).disableTextLayer = this.disableTextLayer;
     this.pdfLinkService = new (<any>PDFJS).PDFLinkService();
 
     this.pdfViewer = new (<any>PDFJS).PDFSinglePageViewer({
-      container: this.getContainer(),
+      container: container,
       removePageBorders: false,
       linkService: this.pdfLinkService,
     });
@@ -153,6 +148,75 @@ export class SimplePdfViewerComponent implements OnInit {
       pdfViewer: this.pdfViewer
     });
     this.pdfViewer.setFindController(this.pdfFindController);
+    container.addEventListener('pagesinit', this.pagesinitEventListener.bind(this));
+    container.addEventListener('pagechange', this.pagechangeEventListener.bind(this));
+  }
+
+  /**
+   * Event listner to check the page init
+   */
+  private pagesinitEventListener() {
+    this.pdfViewer.currentScaleValue = SimplePdfViewerComponent.PDF_VIEWER_DEFAULT_SCALE;
+    this.initZoom();
+    if (this.startPage !== 1) {
+      this.navigateToPage(this.startPage);
+    }
+    this.onLoadComplete.emit(this.pdf);
+  }
+
+  /**
+   * Event listner to check the changes in the current page or scale
+   */
+  private pagechangeEventListener() {
+    this.currentPage = this.pdfViewer._currentPageNumber;
+    this.zoom = this.pdfViewer._currentScale;
+  }
+
+  /**
+   * Parse input src and collect the optional parameters like start page and zoom. 
+   * http://example.org/doc.pdf#page=3
+   * http://example.org/doc.pdf#page=3&zoom=100 
+   */
+  private setAndParseSrc(src: string | Uint8Array | PDFSource) {
+    this.src = src;
+    if (this.src && typeof this.src === 'string') {
+      var res = this.src.split("#");
+      if (res.length > 1) {
+        this.src = res[0];
+        res.forEach(part => {
+          this.parsePageParameter(part);
+          this.parseZoomParameter(part);
+        });
+      }
+    }
+  }
+
+  /**
+   * Parse page parameter if acceptable, example: page=3
+   */
+  private parsePageParameter(part: string) {
+    const parameter = part.split("=");
+    if (parameter.length > 1 && part.indexOf('page') !== -1) {
+      const pageParameterValue = Math.abs(parseInt(`${parameter[1]}`, 10));
+      this.startPage = Number.isNaN(pageParameterValue) ? 1 : pageParameterValue;
+    }
+  }
+
+  /**
+   * Parse zoom parameter if acceptable
+   * Examples: zoom=page, zoom=31, zoom=width, zoom=height
+   */
+  private parseZoomParameter(part: string) {
+    const parameter = part.split("=");
+    if (parameter.length > 1 && part.indexOf('zoom') !== -1) {
+      const parameterValue = parameter[1];
+      if (!Number.isNaN(parseInt(`${parameterValue}`, 10))) {
+        this.zoom = Math.abs(parseInt(`${parameterValue}`, 10)/100);
+        this.zoom_open = SimplePdfViewerComponent.ZOOM_PERCENT;
+      } else {
+        this.zoom_open = parameterValue;
+      }
+    }
   }
 
   /**
@@ -186,25 +250,12 @@ export class SimplePdfViewerComponent implements OnInit {
         });
 
         this.currentPage = 1;
-        this.zoom = 1;
         this.numberOfPages = this.pdf.numPages;
         this.loaded = true;
-
-        container.addEventListener('pagesinit', () => {
-          this.pdfViewer.currentScaleValue = SimplePdfViewerComponent.PDF_VIEWER_DEFAULT_SCALE;
-          this.zoomFullPage();
-          if (this.startPage !== 1) {
-            this.navigateToPage(this.startPage);
-          }
-          this.onLoadComplete.emit(pdfDocument);
-        });
-
-        container.addEventListener('pagechange', () => {
-          this.currentPage = this.pdfViewer._currentPageNumber;
-          this.zoom = this.pdfViewer._currentScale;
-        });
-
       }, (error: any) => {
+        this.currentPage = 1;
+        this.numberOfPages = 1;
+        this.zoom = 1;
         this.onError.emit(error);
       });
     }
@@ -326,6 +377,25 @@ export class SimplePdfViewerComponent implements OnInit {
       const normalizedScale = this.normalizeScale(scale);
       this.pdfViewer._setScale(normalizedScale, false);
       this.zoom = normalizedScale;
+    }
+  }
+
+  /**
+   * Set the initial zoom to the specified value, it is full page by default. 
+   */
+  private initZoom() {
+    switch (this.zoom_open) {
+      case SimplePdfViewerComponent.ZOOM_PERCENT: 
+        this.setZoom(this.zoom);
+        break;
+      case SimplePdfViewerComponent.ZOOM_PAGE_WIDTH: 
+        this.zoomPageWidth();
+        break;
+      case SimplePdfViewerComponent.ZOOM_PAGE_HEIGHT: 
+        this.zoomPageHeight();
+        break;
+      default: 
+        this.zoomFullPage();
     }
   }
 
@@ -583,7 +653,7 @@ export class SimplePdfViewerComponent implements OnInit {
   public navigateToPage(page?: number): void {
     if (this.isDocumentLoaded()) {
       if (page) {
-        const pageInt = parseInt(`${page}`, 10);
+        const pageInt = Math.abs(parseInt(`${page}`, 10));
         this.currentPage = pageInt ? pageInt : this.currentPage;
       }
       if (this.currentPage > this.numberOfPages) {

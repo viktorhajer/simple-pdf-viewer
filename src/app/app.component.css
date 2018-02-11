@@ -153,6 +153,21 @@ main #viewer {
   float: left;
 }
 
+main #viewer .infoBox {
+  color: #346680;
+  line-height: 80vh;
+  text-align: center;
+  font-weight: bold;
+}
+main #viewer .fa {
+  font-size: 22px;
+  line-height: normal;
+}
+main #viewer .errorMsg {
+  font-size: 16px;
+  line-height: 80vh;
+}
+
 footer {
   height: 50px;
   border-top: 1px solid #000000;
