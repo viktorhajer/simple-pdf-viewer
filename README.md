@@ -1,4 +1,5 @@
 <h1 align="center">Simple PDF Viewer</h1>
+<!--
 <p align="center">
   <a href="https://www.npmjs.com/package/simple-pdf-viewer">
     <img src="https://img.shields.io/npm/dm/simple-pdf-viewer.svg?style=flat" alt="downloads">
@@ -16,7 +17,7 @@
     <img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" />
   </a>
 </p>
-
+ -->
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.8.
 
 ## Demo page
