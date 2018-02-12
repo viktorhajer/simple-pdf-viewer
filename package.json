@@ -10,7 +10,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "lint": "ng lint"
+    "lint": "ng lint", 
+    "docs": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\""
   },
   "private": true,
   "dependencies": {

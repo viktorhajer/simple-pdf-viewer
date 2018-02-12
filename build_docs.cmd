@@ -1,1 +1,0 @@
-ng build --prod --output-path docs --base-href "https://viktorhajer.github.io/simple-pdf-viewer/"
