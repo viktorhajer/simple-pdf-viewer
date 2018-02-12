@@ -255,7 +255,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
       // loaded
       (<PDFPromise<PDFDocumentProxy>>progressSrc.promise).then(pdfDocument => {
-        const container = this.getContainer();
         this.pdfViewer.setDocument(pdfDocument);
         this.pdfViewer.currentScaleValue = SimplePdfViewerComponent.PDF_VIEWER_DEFAULT_SCALE;
         this.pdfLinkService.setDocument(pdfDocument, null);
