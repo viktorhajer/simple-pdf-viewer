@@ -11,35 +11,23 @@ const OUTLINE_MENU = 2;
 export class AppComponent {
 
   src: string = 'assets/example/pdf-test.pdf#page=1#zoom=page';
-
-  renderedPercent = 0;
-  activeMenu = 1;
+  menu = 1;
   backButtonVisible = false;
   errorMsg = '';
-  lastSearch = '';
 
   @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
 
-  isActiveMenu(activeMenu: number): boolean {
-    return this.activeMenu === activeMenu && (this.pdfViewer.isDocumentLoaded() || activeMenu === 1);
+  isActiveMenu(menu: number): boolean {
+    return this.menu === menu && (this.pdfViewer.isDocumentLoaded() || menu === 1);
   }
 
-  setActiveMenu(activeMenuID: number) {
-    this.activeMenu = activeMenuID;
-    if(activeMenuID == OUTLINE_MENU) {
+  setActiveMenu(menu: number) {
+    this.menu = menu;
+    if(menu == OUTLINE_MENU) {
       this.backButtonVisible = true;
     } else {
       this.backButtonVisible =false;
     }
-  }
-
-  onProgress(event: any) {
-    this.renderedPercent = Math.round((event.loaded / event.total) * 100);
-    this.renderedPercent = this.renderedPercent > 100 ? 100 : this.renderedPercent;
-  }
-
-  getZoomPercent(): number {
-    return Math.floor(this.pdfViewer.getZoom() * 1000) / 10;
   }
 
   openDocument(documents: File[], firstPage?:any, firstZoom?: any) {
@@ -51,10 +39,6 @@ export class AppComponent {
       };
       fileReader.readAsArrayBuffer(documents[0]);
     }
-  }
-
-  searchText(text: string) {
-    this.lastSearch = this.pdfViewer.search(text);
   }
 
   onError(event: any) {

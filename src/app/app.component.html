@@ -120,8 +120,8 @@
       <!-- Searching -->
       <div class="subMenu" *ngIf="isActiveMenu(6)">
         <div class="subMenuItemGroup">
-          <input type="input" [(ngModel)]="searchBox" (keyup.enter)="searchText(searchBox)" placeholder="Type..." value="{{lastSearch}}">
-          <div class="subMenuItem fa fa-search" (click)="searchText(searchBox)"></div>
+          <input type="input" [(ngModel)]="searchBox" (keyup.enter)="pdfViewer.search(searchBox)" placeholder="Type...">
+          <div class="subMenuItem fa fa-search" (click)="pdfViewer.search(searchBox)"></div>
           <div class="clear"></div>
         </div>
         <div class="subMenuItemGroup" *ngIf="pdfViewer.hasMatches()">
@@ -147,7 +147,7 @@
 
   <!-- Simple PDF Viewer Container -->
   <section id="viewer">
-    <simple-pdf-viewer #pdfViewer [src]="src" (onProgress)="onProgress($event)" (onError)="onError($event)"></simple-pdf-viewer>
+    <simple-pdf-viewer #pdfViewer [src]="src" (onError)="onError($event)"></simple-pdf-viewer>
     <div *ngIf="!pdfViewer.isDocumentLoaded()" class="infoBox">
       <div class="fa fa-circle-o-notch fa-spin" *ngIf="!errorMsg"></div>
       <div class="errorMsg" *ngIf="errorMsg">{{errorMsg}}</div>
@@ -156,5 +156,5 @@
 </main>
 
 <footer>
-  <p *ngIf="pdfViewer.isDocumentLoaded()">{{pdfViewer.getCurrentPage() + ' / ' + pdfViewer.getNumberOfPages()}} ({{getZoomPercent()}}%)</p>
+  <p *ngIf="pdfViewer.isDocumentLoaded()">{{pdfViewer.getCurrentPage() + ' / ' + pdfViewer.getNumberOfPages()}} ({{pdfViewer.getZoomPercent()}}%)</p>
 </footer>

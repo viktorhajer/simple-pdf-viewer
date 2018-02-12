@@ -308,6 +308,13 @@ export class SimplePdfViewerComponent implements OnInit {
   }
 
   /**
+   * Returns the value of the viewport scale in %
+   */
+  public getZoomPercent(): number {
+    return Math.floor(this.getZoom() * 1000) / 10;
+  }
+
+  /**
    * Increases the scale of the PDF viewport
    */
   public zoomIn(): void {
@@ -457,11 +464,11 @@ export class SimplePdfViewerComponent implements OnInit {
    * @param text searched text
    * @param caseSensitive set true to use case sensitive searching
    */
-  public search(text: string, caseSensitive: boolean = false, phraseSearch: boolean = true): string {
+  public search(text: string, caseSensitive: boolean = false, phraseSearch: boolean = true): void {
     if (this.isDocumentLoaded()) {
-      const searchText = text ? this.removeSpecialChars(text) : '';
+      const searchText = text ? text.trim() : '';
       if (!searchText) {
-        return searchText;
+        return;
       }
       this.lastSearchText = text;
       this.searchPrevious = false;
@@ -476,17 +483,7 @@ export class SimplePdfViewerComponent implements OnInit {
         phraseSearch: this.searchPhraseSearch,
         query: searchText
       });
-      return searchText;
     }
-    return text;
-  }
-
-  /**
-   * Removes special characters from the input string and also trim it
-   * @param text Text should be normlaized
-   */
-  private removeSpecialChars(text: string) {
-    return text ? text.replace(/[`~!#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '').trim() : '';
   }
 
   /**

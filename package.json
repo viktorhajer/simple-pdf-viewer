@@ -1,10 +1,10 @@
 {
   "name": "simple-pdf-viewer",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "author": {
     "name": "Viktor Hajer",
-    "email": "Viktor.Hajer@gmail.com"
+    "email": "viktor.hajer@gmail.com"
   },
   "scripts": {
     "ng": "ng",
@@ -14,7 +14,32 @@
     "docs": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\"",
     "packagr": "ng-packagr -p ng-package.json"
   },
-  "private": true,
+  "bugs": {
+    "url": "https://github.com/viktorhajer/simple-pdf-viewer/issues"
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/viktorhajer/simple-pdf-viewer.git"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "angular4",
+    "angular5",
+    "pdf",
+    "angular-pdf",
+    "simple-pdf",
+    "pdf-viewer",
+    "document-viewer",
+    "ionic"
+  ],
+  "homepage": "https://github.com/viktorhajer/simple-pdf-viewer#readme",
+  "peerDependencies": {
+    "@angular/core": ">=5.0.0",
+    "pdfjs-dist": "1.10.88",
+    "@types/pdfjs-dist": "^0.1.1"
+  },
   "dependencies": {
     "@angular/animations": "^5.2.0",
     "@angular/common": "^5.2.0",
