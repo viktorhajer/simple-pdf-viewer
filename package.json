@@ -10,8 +10,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "lint": "ng lint", 
-    "docs": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\""
+    "lint": "ng lint",
+    "docs": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\"",
+    "packagr": "ng-packagr -p ng-package.json"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +38,7 @@
     "@angular/language-service": "^5.2.0",
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
+    "ng-packagr": "^2.0.0",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"

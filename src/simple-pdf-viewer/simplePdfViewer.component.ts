@@ -13,7 +13,7 @@ import PDFInfo = PDF.PDFInfo;
 
 declare var require: any;
 
-export enum SearchState {
+export enum SimpleSearchState {
   FOUND,
   NOT_FOUND,
   WRAPPED,
@@ -79,7 +79,7 @@ export class SimplePdfViewerComponent implements OnInit {
   @Output('onLoadComplete') onLoadComplete = new EventEmitter<PDFDocumentProxy>();
   @Output('onError') onError = new EventEmitter<any>();
   @Output('onProgress') onProgress = new EventEmitter<PDFProgressData>();
-  @Output('onSearchStateChange') onSearchStateChange = new EventEmitter<SearchState>();
+  @Output('onSearchStateChange') onSearchStateChange = new EventEmitter<SimpleSearchState>();
 
   private startPage: number = 1;
   private loaded: boolean = false;
@@ -101,6 +101,7 @@ export class SimplePdfViewerComponent implements OnInit {
   private lastSearchText: string = '';
   private searchPrevious: boolean = false;
   private searchCaseSensitive: boolean = false;
+  private searchPhraseSearch: boolean = true;
 
   constructor(private element: ElementRef) {
   }
@@ -138,7 +139,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns whether the PDF document is loaded properly
-   * @returns {boolean} true if document is loaded
    */
   public isDocumentLoaded(): boolean {
     return this.loaded;
@@ -283,7 +283,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns the HTML container element of the component
-   * @returns {HTMLElement} container
    */
   private getContainer(): HTMLElement {
     return this.element.nativeElement.querySelector('div') as HTMLElement;
@@ -303,7 +302,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns the value of the viewport scale
-   * @returns {number} scale of the PDF viewport
    */
   public getZoom(): number {
     return this.zoom;
@@ -378,7 +376,6 @@ export class SimplePdfViewerComponent implements OnInit {
   /**
    * Get the proper scale of the actual viewport to fit
    * @param viewport actual viewport
-   * @returns {number} the fit scale
    */
   private getScale(viewport: PDFPageViewport, priority: ScalePriority = ScalePriority.FULL): number {
     const offsetHeight = this.getContainer().offsetHeight;
@@ -440,7 +437,6 @@ export class SimplePdfViewerComponent implements OnInit {
   /**
    * Normalize the scale to fit in the scale boundary
    * @param scale
-   * @returns {number} the normalized scale value
    */
   private normalizeScale(scale): number {
     let normalizedScale = scale;
@@ -461,7 +457,7 @@ export class SimplePdfViewerComponent implements OnInit {
    * @param text searched text
    * @param caseSensitive set true to use case sensitive searching
    */
-  public search(text: string, caseSensitive: boolean = false): string {
+  public search(text: string, caseSensitive: boolean = false, phraseSearch: boolean = true): string {
     if (this.isDocumentLoaded()) {
       const searchText = text ? this.removeSpecialChars(text) : '';
       if (!searchText) {
@@ -470,13 +466,14 @@ export class SimplePdfViewerComponent implements OnInit {
       this.lastSearchText = text;
       this.searchPrevious = false;
       this.searchCaseSensitive = caseSensitive;
+      this.searchPhraseSearch = phraseSearch;
       this.pdfFindController.onUpdateResultsCount = this.onUpdateResultsCount.bind(this);
       this.pdfFindController.onUpdateState = this.onUpdateState.bind(this);
       this.pdfFindController.executeCommand(SimplePdfViewerComponent.PDF_FINDER_FIND_COMMAND, {
         caseSensitive: this.searchCaseSensitive,
         findPrevious: false,
         highlightAll: true,
-        phraseSearch: true,
+        phraseSearch: this.searchPhraseSearch,
         query: searchText
       });
       return searchText;
@@ -487,7 +484,6 @@ export class SimplePdfViewerComponent implements OnInit {
   /**
    * Removes special characters from the input string and also trim it
    * @param text Text should be normlaized
-   * @returns {string} The normalized text
    */
   private removeSpecialChars(text: string) {
     return text ? text.replace(/[`~!#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '').trim() : '';
@@ -532,7 +528,7 @@ export class SimplePdfViewerComponent implements OnInit {
         caseSensitive: this.searchCaseSensitive,
         findPrevious: this.searchPrevious,
         highlightAll: true,
-        phraseSearch: true,
+        phraseSearch: this.searchPhraseSearch,
         query: this.lastSearchText
       });
     }
@@ -540,7 +536,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns the number of the search hits
-   * @returns {number} the number of matched result
    */
   public getNumberOfMatches(): number {
     if (this.isDocumentLoaded()) {
@@ -551,7 +546,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns whether there is a matched item
-   * @returns {boolean} true if there was matched item
    */
   public hasMatches(): boolean {
     return this.getNumberOfMatches() > 0;
@@ -559,7 +553,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns whether the search is in-progress
-   * @returns {boolean} true if searching operation is in-progress
    */
   public isSearching(): boolean {
     return this.searching;
@@ -579,9 +572,9 @@ export class SimplePdfViewerComponent implements OnInit {
    * emitter.
    * @param state the state of the current search
    */
-  private onUpdateState(state: SearchState): void {
+  private onUpdateState(state: SimpleSearchState): void {
     this.onSearchStateChange.emit(state);
-    this.searching = state === SearchState.PENDING;
+    this.searching = state === SimpleSearchState.PENDING;
     if (!this.searching) {
       this.pdfFindController.onUpdateState = null;
     }
@@ -593,7 +586,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns the number of the actual page
-   * @returns {number} the number of actual page
    */
   public getCurrentPage(): number {
     return this.currentPage;
@@ -601,7 +593,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns the number of the pages
-   * @returns {number} the length of the document
    */
   public getNumberOfPages(): number {
     return this.numberOfPages;
@@ -609,7 +600,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns outline / table of content in tree structure
-   * @returns {SimpleOutlineNode} the outline of the document
    */
   public getOutline(): SimpleOutlineNode[] {
     return this.hasOutline() ? this.outline : [];
@@ -617,7 +607,6 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Returns whether the outline is available
-   * @returns {boolean} true if outline is available
    */
   public hasOutline(): boolean {
     return this.loaded && !!this.outline && !!this.outline.length;

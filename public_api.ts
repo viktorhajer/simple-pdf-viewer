@@ -1,0 +1,1 @@
+export * from './src/simple-pdf-viewer/simplePdfViewer.module'
