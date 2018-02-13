@@ -19,3 +19,7 @@ export class SimpleOutlineNode implements PDFTreeNode {
   italic: boolean;
   color: number[];
 }
+
+export class SimpleProgressData {
+  constructor(public loaded: number, public total: number){};
+}

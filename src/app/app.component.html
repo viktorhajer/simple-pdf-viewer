@@ -147,7 +147,9 @@
 
   <!-- Simple PDF Viewer Container -->
   <section id="viewer">
-    <simple-pdf-viewer #pdfViewer [src]="src" (onError)="onError($event)"></simple-pdf-viewer>
+    <simple-pdf-viewer #pdfViewer [src]="src" 
+      (onError)="onError($event)" (onProgress)="onProgress($event)" (onLoadComplete)="onLoadComplete()">
+    </simple-pdf-viewer>
     <div *ngIf="!pdfViewer.isDocumentLoaded()" class="infoBox">
       <div class="fa fa-circle-o-notch fa-spin" *ngIf="!errorMsg"></div>
       <div class="errorMsg" *ngIf="errorMsg">{{errorMsg}}</div>

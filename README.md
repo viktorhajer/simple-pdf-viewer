@@ -93,10 +93,10 @@ In your component html
 
 | Signature        | Short Description | 
 | :------------- |:-------------| 
-| `onLoadComplete: EventEmitter<PDFDocumentProxy>` | Description |
-| `onError: EventEmitter<any>` | Description |
-| `onProgress: EventEmitter<PDFProgressData>` | Description |
-| `onSearchStateChange: EventEmitter<SimpleSearchState>` | Description |
+| `onLoadComplete: EventEmitter<void>` | Get event when a document is loaded |
+| `onError: EventEmitter<any>` | Get event when error occurred during the loading |
+| `onProgress: EventEmitter<SimpleProgressData>` | Loading progress callback |
+| `onSearchStateChange: EventEmitter<SimpleSearchState>` | Get event about search status  |
 
 ### Methods
 

@@ -10,7 +10,7 @@ import PDFPageViewport = PDF.PDFPageViewport;
 import PDFSource = PDF.PDFSource;
 import PDFTreeNode = PDF.PDFTreeNode;
 import PDFInfo = PDF.PDFInfo;
-import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode } from './simplePdfViewer.models';
+import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData } from './simplePdfViewer.models';
 
 declare var require: any;
 
@@ -308,9 +308,9 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   @Input() src: string | Uint8Array | PDFSource;
 
-  @Output('onLoadComplete') onLoadComplete = new EventEmitter<PDFDocumentProxy>();
+  @Output('onLoadComplete') onLoadComplete = new EventEmitter<void>();
   @Output('onError') onError = new EventEmitter<any>();
-  @Output('onProgress') onProgress = new EventEmitter<PDFProgressData>();
+  @Output('onProgress') onProgress = new EventEmitter<SimpleProgressData>();
   @Output('onSearchStateChange') onSearchStateChange = new EventEmitter<SimpleSearchState>();
 
   private startPage: number = 1;
@@ -408,7 +408,7 @@ export class SimplePdfViewerComponent implements OnInit {
     if (this.startPage !== 1) {
       this.navigateToPage(this.startPage);
     }
-    this.onLoadComplete.emit(this.pdf);
+    this.onLoadComplete.emit();
   }
 
   /**
@@ -482,7 +482,7 @@ export class SimplePdfViewerComponent implements OnInit {
 
       // progress
       progressSrc.onProgress = (progressData: PDFProgressData) => {
-        this.onProgress.emit(progressData);
+        this.onProgress.emit(new SimpleProgressData(progressData.loaded, progressData.total));
       };
 
       // loaded

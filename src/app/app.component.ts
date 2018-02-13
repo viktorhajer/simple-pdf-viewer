@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { SimplePdfViewerComponent } from '../../libs/simple-pdf-viewer/src/simplePdfViewer.component';
+import { SimpleProgressData } from '../../libs/simple-pdf-viewer/src/simplePdfViewer.models';
 
 const OUTLINE_MENU = 2;
 
@@ -43,5 +44,13 @@ export class AppComponent {
 
   onError(event: any) {
     this.errorMsg = 'Failed to load the document';
+  }
+
+  onProgress(progress: SimpleProgressData) {
+    console.log(progress);
+  }
+
+  onLoadComplete()  {
+    console.log('Document is loaded');
   }
 }
