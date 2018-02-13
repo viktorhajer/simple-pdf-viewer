@@ -87,39 +87,39 @@ In your component html
 
 | Signature        | Short Description | 
 | :------------- |:-------------| 
-| openDocument(src: string | Uint8Array | PDFSource, page?: number, zoom?: number | string): void; | Open a PDF document at the specified page (at the first page by default with full page zoom) |
-| isDocumentLoaded(): boolean; | Returns whether the PDF document is loaded properly |
-| getDocumentInformation(): SimpleDocumentInfo[]; | Returns the basic information about the PDF document |
-| getZoom(): number;| Returns the value of the viewport scale |
-| getZoomPercent(): number;| Returns the value of the viewport scale in % |
-| setZoom(scale: number): void; | Set the zoom of the document in double |
-| setZoomInPercent(zoom: number): void; | Set the zoom of the document in percent |
-| zoomIn(): void;| Increases the scale of the PDF viewport |
-| zoomOut(): void; | Decreases the scale of the PDF viewport |
-| zoomReset(): void; | Sets the original viewport scale back to 1.0 |
-| zoomFullPage(): void; | Sets the scale of the PDF viewport to fit in the actual screen |
-| zoomPageWidth(): void; | Sets the scale of the PDF viewport to fit in the actual screen (width priority) |
-| zoomPageHeight(): void; | Sets the scale of the PDF viewport to fit in the actual screen (height priority) |
-| search(text: string, caseSensitive?: boolean, phraseSearch?: boolean): void; | Starts case sensitive/insensitive text search and navigate to the first match (from the actual page). Phrase search can be turned on/off. |
-| nextMatch(): void;| Navigates to the next search match if there were multiple hits |
-| previousMatch(): void; | Navigates to the previous search match if there were multiple hits |
-| getNumberOfMatches(): number; | Returns the number of the search hits |
-| hasMatches(): boolean; | Returns whether there is a matched item |
-| isSearching(): boolean; | Returns whether the search is in-progress |
-| getCurrentPage(): number; | Returns the number of the actual page |
-| getNumberOfPages(): number; | Returns the number of the pages |
-| getOutline(): SimpleOutlineNode[]; | Returns outline / table of content in tree structure |
-| hasOutline(): boolean; | Returns whether the outline is available |
-| navigateToChapter(destination: any): void; | Navigates to the specified (outline) destination/chapter |
-| firstPage(): void; | Navigates to the first page |
-| lastPage(): void; | Navigates to the last page |
-| nextPage(): void; | Navigates to the next page |
-| prevPage(): void; | Navigates to the previous page |
-| navigateToPage(page?: number): void; | Navigates to the specified page |
-| getRotation(): number; | Returns the actual rotation value in degree |
-| resetRotation(): void; | Sets the rotation to the default 0 degree |
-| turnLeft(): void; | Turns left the document with 90 degree (counterclockwise) |
-| turnRight(): void; | Turns right the document with 90 degree (clockwise) |
+| `openDocument(src: string \| Uint8Array \| PDFSource, page?: number, zoom?: number \| string): void`| Open a PDF document at the specified page (at the first page by default with full page zoom) |
+| `isDocumentLoaded(): boolean` | Returns whether the PDF document is loaded properly |
+| `getDocumentInformation(): SimpleDocumentInfo[]` | Returns the basic information about the PDF document |
+| `getZoom(): number` | Returns the value of the viewport scale |
+| getZoomPercent(): number| Returns the value of the viewport scale in % |
+| setZoom(scale: number): void | Set the zoom of the document in double |
+| setZoomInPercent(zoom: number): void | Set the zoom of the document in percent |
+| zoomIn(): void| Increases the scale of the PDF viewport |
+| zoomOut(): void | Decreases the scale of the PDF viewport |
+| zoomReset(): void | Sets the original viewport scale back to 1.0 |
+| zoomFullPage(): void | Sets the scale of the PDF viewport to fit in the actual screen |
+| zoomPageWidth(): void | Sets the scale of the PDF viewport to fit in the actual screen (width priority) |
+| zoomPageHeight(): void | Sets the scale of the PDF viewport to fit in the actual screen (height priority) |
+| search(text: string, caseSensitive?: boolean, phraseSearch?: boolean): void | Starts case sensitive/insensitive text search and navigate to the first match (from the actual page). Phrase search can be turned on/off. |
+| nextMatch(): void| Navigates to the next search match if there were multiple hits |
+| previousMatch(): void | Navigates to the previous search match if there were multiple hits |
+| getNumberOfMatches(): number | Returns the number of the search hits |
+| hasMatches(): boolean | Returns whether there is a matched item |
+| isSearching(): boolean | Returns whether the search is in-progress |
+| getCurrentPage(): number | Returns the number of the actual page |
+| getNumberOfPages(): number | Returns the number of the pages |
+| getOutline(): SimpleOutlineNode[] | Returns outline / table of content in tree structure |
+| hasOutline(): boolean | Returns whether the outline is available |
+| navigateToChapter(destination: any): void | Navigates to the specified (outline) destination/chapter |
+| firstPage(): void | Navigates to the first page |
+| lastPage(): void | Navigates to the last page |
+| nextPage(): void | Navigates to the next page |
+| prevPage(): void | Navigates to the previous page |
+| navigateToPage(page?: number): void | Navigates to the specified page |
+| getRotation(): number | Returns the actual rotation value in degree |
+| resetRotation(): void | Sets the rotation to the default 0 degree |
+| turnLeft(): void | Turns left the document with 90 degree (counterclockwise) |
+| turnRight(): void | Turns right the document with 90 degree (clockwise) |
 
 ## Contribute
 [See CONTRIBUTING.md](CONTRIBUTING.md)
