@@ -1,9 +1,9 @@
 <h1 align="center">Simple PDF Viewer</h1>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/simple-pdf-viewer">
+  <!--a href="https://www.npmjs.com/package/simple-pdf-viewer">
     <img src="https://img.shields.io/npm/dm/simple-pdf-viewer.svg?style=flat" alt="downloads">
-  </a>
+  </a-->
   <a href="https://badge.fury.io/js/simple-pdf-viewer">
     <img src="https://badge.fury.io/js/simple-pdf-viewer.svg" alt="npm version">
   </a>
