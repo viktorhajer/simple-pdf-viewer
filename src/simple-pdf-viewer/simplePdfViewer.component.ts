@@ -369,7 +369,7 @@ export class SimplePdfViewerComponent implements OnInit {
   }
 
   /**
-   * Sets the scale of the PDF viewport to fit in the actual screen (width priority)
+   * Sets the scale of the PDF viewport to fit in the actual screen (height priority)
    */
   public zoomPageHeight(): void {
     if (this.isDocumentLoaded()) {
@@ -401,7 +401,7 @@ export class SimplePdfViewerComponent implements OnInit {
   }
 
   /**
-   * Set the zoom of the document
+   * Set the zoom of the document in double
    * @param scale The zoom value in double
    */
   public setZoom(scale: number): void {
@@ -409,6 +409,16 @@ export class SimplePdfViewerComponent implements OnInit {
       const normalizedScale = this.normalizeScale(scale);
       this.pdfViewer._setScale(normalizedScale, false);
       this.zoom = normalizedScale;
+    }
+  }
+
+    /**
+   * Set the zoom of the document in percent
+   * @param zoom The scale value in percent
+   */
+  public setZoomInPercent(zoom: number): void {
+    if (this.isDocumentLoaded() && typeof zoom === 'number') {
+      this.setZoom(zoom / 100);
     }
   }
 
@@ -428,16 +438,6 @@ export class SimplePdfViewerComponent implements OnInit {
         break;
       default: 
         this.zoomFullPage();
-    }
-  }
-
-  /**
-   * Set the scale of the document
-   * @param zoom The scale value in percent
-   */
-  public setZoomInPercent(zoom: number): void {
-    if (this.isDocumentLoaded() && typeof zoom === 'number') {
-      this.setZoom(zoom / 100);
     }
   }
 
@@ -610,10 +610,10 @@ export class SimplePdfViewerComponent implements OnInit {
   }
 
   /**
-   * Navigates to the specified (outline) destination
+   * Navigates to the specified (outline) destination/chapter
    * @param destination the destination object of the outline item
    */
-  public navigateToDestination(destination: any): void {
+  public navigateToChapter(destination: any): void {
     if (this.isDocumentLoaded()) {
       // TODO: input validation
       this.pdfLinkService.navigateTo(destination);

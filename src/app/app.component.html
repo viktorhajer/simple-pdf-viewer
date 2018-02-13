@@ -49,9 +49,9 @@
           <h2>Table of Content</h2>
           <ul *ngFor="let item of pdfViewer.getOutline()" class="outline-list">
             <li>
-              <a (click)="pdfViewer.navigateToDestination(item.dest)" class="outline-main-item">{{ item.title }}</a>
+              <a (click)="pdfViewer.navigateToChapter(item.dest)" class="outline-main-item">{{ item.title }}</a>
               <ul class="outline-sub-item" *ngFor="let child of item.items">
-                <li><a (click)="pdfViewer.navigateToDestination(child.dest)">{{ child.title }}</a></li>
+                <li><a (click)="pdfViewer.navigateToChapter(child.dest)">{{ child.title }}</a></li>
               </ul>
             </li>
           </ul>
