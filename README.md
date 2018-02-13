@@ -81,7 +81,7 @@ In your component html
 </p>
 ```
 
-## Options
+## API Documentation
 
 ### Input parameter
 
