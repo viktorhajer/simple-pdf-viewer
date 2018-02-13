@@ -12,7 +12,7 @@
     "build": "ng build --prod",
     "lint": "ng lint",
     "docs": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\"",
-    "packagr": "ng-packagr -p ng-package.json"
+    "packagr": "ng-packagr -p libs/simple-pdf-viewer/package.json"
   },
   "bugs": {
     "url": "https://github.com/viktorhajer/simple-pdf-viewer/issues"

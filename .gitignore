@@ -5,6 +5,7 @@
 /dist-server
 /tmp
 /out-tsc
+/.ng_pkg_build
 
 # dependencies
 /node_modules
@@ -33,7 +34,6 @@
 npm-debug.log
 testem.log
 /typings
-.ng_pkg_build
 
 # e2e
 /e2e/*.js

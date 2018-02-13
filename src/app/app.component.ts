@@ -1,5 +1,5 @@
-import {Component, ViewChild} from '@angular/core';
-import {SimplePdfViewerComponent} from '../simple-pdf-viewer/simplePdfViewer.component';
+import { Component, ViewChild } from '@angular/core';
+import { SimplePdfViewerComponent } from '../../libs/simple-pdf-viewer/src/simplePdfViewer.component';
 
 const OUTLINE_MENU = 2;
 
