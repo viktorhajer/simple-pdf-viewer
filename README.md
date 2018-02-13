@@ -89,7 +89,7 @@ In your component html
 | :------------- |:-------------| 
 | `src: string \| Uint8Array \| PDFSource` | Source of the PDF document (Required) |
 
-### Event Emitters
+### Output events
 
 | Signature        | Short Description | 
 | :------------- |:-------------| 
