@@ -42,32 +42,31 @@
     "@types/pdfjs-dist": "^0.1.1"
   },
   "dependencies": {
+    "@types/pdfjs-dist": "0.1.1",
+    "pdfjs-dist": "1.10.88"
+  },
+  "devDependencies": {
     "@angular/animations": "^5.2.0",
+    "@angular/cli": "1.6.8",
     "@angular/common": "^5.2.0",
     "@angular/compiler": "^5.2.0",
+    "@angular/compiler-cli": "^5.2.0",
     "@angular/core": "^5.2.0",
     "@angular/forms": "^5.2.0",
     "@angular/http": "^5.2.0",
+    "@angular/language-service": "^5.2.0",
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@types/node": "^6.0.98",
-    "@types/pdfjs-dist": "0.1.1",
-    "core-js": "^2.4.1",
-    "pdfjs-dist": "1.10.88",
-    "rxjs": "^5.5.6",
-    "zone.js": "^0.8.19"
-  },
-  "devDependencies": {
-    "@angular/cli": "1.6.8",
-    "@angular/compiler-cli": "^5.2.0",
-    "@angular/language-service": "^5.2.0",
-    "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
+    "core-js": "^2.4.1",
     "ng-packagr": "^2.0.0",
     "np": "^2.20.0",
+    "rxjs": "^5.5.6",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
+    "typescript": "~2.5.3",
+    "zone.js": "^0.8.19"
   }
 }
