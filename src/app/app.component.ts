@@ -32,7 +32,7 @@ export class AppComponent {
 
   openDocument(documents: File[], firstPage?:any, firstZoom?: any) {
     this.errorMsg = '';
-    if (documents) {
+    if (documents && documents.length > 0) {
       const fileReader: FileReader = new FileReader();
       fileReader.onload = () => {
         this.pdfViewer.openDocument(new Uint8Array(fileReader.result), firstPage, firstZoom);
