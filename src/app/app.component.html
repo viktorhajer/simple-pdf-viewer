@@ -158,5 +158,22 @@
 </main>
 
 <footer>
-  <p *ngIf="pdfViewer.isDocumentLoaded()">{{pdfViewer.getCurrentPage() + ' / ' + pdfViewer.getNumberOfPages()}} ({{pdfViewer.getZoomPercent()}}%)</p>
+  <p *ngIf="pdfViewer.isDocumentLoaded()">
+    <span class="fa fa-angle-double-left" (click)="pdfViewer.firstPage()"></span>
+    <span class="fa fa-angle-left" (click)="pdfViewer.prevPage()"></span>
+    {{pdfViewer.getCurrentPage() + ' / ' + pdfViewer.getNumberOfPages()}} 
+    <span class="fa fa-angle-right" (click)="pdfViewer.nextPage()"></span>
+    <span class="fa fa-angle-double-right" (click)="pdfViewer.lastPage()"></span>
+    |
+    <span class="fa fa-plus-circle small" (click)="pdfViewer.zoomIn()"></span>
+    {{pdfViewer.getZoomPercent()}}%
+    <span class="fa fa-minus-circle small" (click)="pdfViewer.zoomOut()"></span>
+    <span class="fa fa-arrows-alt small" (click)="pdfViewer.zoomFullPage()"></span>
+    <span class="fa fa-arrows-h small" (click)="pdfViewer.zoomPageWidth()"></span>
+    <span class="fa fa-arrows-v small" (click)="pdfViewer.zoomPageHeight()"></span>
+    | 
+    <span class="fa fa-rotate-left small" (click)="pdfViewer.turnLeft()"></span>
+    {{pdfViewer.getRotation()}}&deg;
+    <span class="fa fa-rotate-right small" (click)="pdfViewer.turnRight()"></span>
+  </p>
 </footer>

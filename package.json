@@ -11,8 +11,9 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "lint": "ng lint",
-    "docs": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\"",
+    "deploy": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\"",
     "packagr": "ng-packagr -p libs/simple-pdf-viewer/package.json",
+    "prerelease": "npm run packagr",
     "release": "np"
   },
   "bugs": {

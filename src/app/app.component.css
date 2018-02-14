@@ -171,6 +171,7 @@ main #viewer .errorMsg {
 footer {
   height: 50px;
   border-top: 1px solid #000000;
+  user-select: none;
 }
 
 footer p {
@@ -180,6 +181,16 @@ footer p {
   color: rgba(255,255,255,0.4);
   letter-spacing: 2px;
   text-shadow: 2px 2px 3px rgba(0,0,0,0.5);
+  cursor: default;
+}
+
+footer p span {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+footer p span.small {
+  font-size: 12px;
 }
 
 .outline {

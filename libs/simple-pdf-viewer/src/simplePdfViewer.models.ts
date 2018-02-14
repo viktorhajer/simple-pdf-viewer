@@ -1,5 +1,6 @@
-import PDFTreeNode = PDF.PDFTreeNode;
-
+/**
+ * Enum for searching state
+ */
 export enum SimpleSearchState {
   FOUND,
   NOT_FOUND,
@@ -7,19 +8,23 @@ export enum SimpleSearchState {
   PENDING
 }
 
+/**
+ * PDF Document basic information representation
+ */
 export class SimpleDocumentInfo {
   constructor(public key: string, public value: string){};
 }
 
-export class SimpleOutlineNode implements PDFTreeNode {
-  title: string;
-  dest: any;
-  items: SimpleOutlineNode[];
-  bold: boolean;
-  italic: boolean;
-  color: number[];
+/**
+ * Representation of the Outline nodes
+ */
+export class SimpleOutlineNode {
+  constructor(public title: string, public dest: any, public items: SimpleOutlineNode[]){};
 }
 
+/**
+ * Representation of the loading progress
+ */
 export class SimpleProgressData {
   constructor(public loaded: number, public total: number){};
 }

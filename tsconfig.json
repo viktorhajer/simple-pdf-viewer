@@ -11,9 +11,6 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "paths": {
-      "simple-pdf-viewer": ["libs/simple-pdf-viewer"]
-    },
     "lib": [
       "es2017",
       "dom"

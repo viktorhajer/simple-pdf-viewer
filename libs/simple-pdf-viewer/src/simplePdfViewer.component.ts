@@ -2,14 +2,6 @@
  * Created by Viktor Hajer on 02/08/2018.
  */
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import PDFDocumentProxy = PDF.PDFDocumentProxy;
-import PDFPromise = PDF.PDFPromise;
-import PDFProgressData = PDF.PDFProgressData;
-import PDFPageProxy = PDF.PDFPageProxy;
-import PDFPageViewport = PDF.PDFPageViewport;
-import PDFSource = PDF.PDFSource;
-import PDFTreeNode = PDF.PDFTreeNode;
-import PDFInfo = PDF.PDFInfo;
 import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData } from './simplePdfViewer.models';
 
 declare var require: any;
@@ -306,7 +298,7 @@ export class SimplePdfViewerComponent implements OnInit {
   /**
    * Source of the PDF document (Required)
    */
-  @Input() src: string | Uint8Array | PDFSource;
+  @Input() src: string | Uint8Array | PDF.PDFSource;
 
   @Output('onLoadComplete') onLoadComplete = new EventEmitter<void>();
   @Output('onError') onError = new EventEmitter<any>();
@@ -324,7 +316,7 @@ export class SimplePdfViewerComponent implements OnInit {
   private rotation: number = 0;
   private disableTextLayer: boolean = false;
 
-  private pdf: PDFDocumentProxy;
+  private pdf: PDF.PDFDocumentProxy;
   private pdfLinkService: any;
   private pdfViewer: any;
   private pdfFindController: any;
@@ -338,9 +330,6 @@ export class SimplePdfViewerComponent implements OnInit {
   constructor(private element: ElementRef) {
   }
 
-  /**
-   * Init angular component
-   */
   public ngOnInit() {
     if (typeof window !== 'undefined') {
       if (typeof PDFJS.workerSrc !== 'string') {
@@ -359,7 +348,7 @@ export class SimplePdfViewerComponent implements OnInit {
    * @param page The specified page where should start, default: 1
    * @param zoom The specified zoom value, default: full page
    */
-  public openDocument(src: string | Uint8Array | PDFSource, page: number = 1, zoom: number | string = 'page'): void {
+  public openDocument(src: string | Uint8Array | PDF.PDFSource, page: number = 1, zoom: number | string = 'page'): void {
     this.parsePageParameter(`page=${page}`);
     this.parseZoomParameter(`zoom=${zoom}`);
     this.setAndParseSrc(src);
@@ -376,9 +365,6 @@ export class SimplePdfViewerComponent implements OnInit {
     return this.loaded;
   }
 
-  /**
-   * Init PDFjs releated entries
-   */
   private initPDFJS() {
     const container = this.getContainer();
     (<any>PDFJS).disableTextLayer = this.disableTextLayer;
@@ -399,9 +385,6 @@ export class SimplePdfViewerComponent implements OnInit {
     container.addEventListener('pagechange', this.pagechangeEventListener.bind(this));
   }
 
-  /**
-   * Event listner to check the page init
-   */
   private pagesinitEventListener() {
     this.pdfViewer.currentScaleValue = SimplePdfViewerComponent.PDF_VIEWER_DEFAULT_SCALE;
     this.initZoom();
@@ -411,20 +394,12 @@ export class SimplePdfViewerComponent implements OnInit {
     this.onLoadComplete.emit();
   }
 
-  /**
-   * Event listner to check the changes in the current page or scale
-   */
   private pagechangeEventListener() {
     this.currentPage = this.pdfViewer._currentPageNumber;
     this.zoom = this.pdfViewer._currentScale;
   }
 
-  /**
-   * Parse input src and collect the optional parameters like start page and zoom. 
-   * http://example.org/doc.pdf#page=3
-   * http://example.org/doc.pdf#page=3&zoom=100 
-   */
-  private setAndParseSrc(src: string | Uint8Array | PDFSource) {
+  private setAndParseSrc(src: string | Uint8Array | PDF.PDFSource) {
     this.src = src;
     if (this.src && typeof this.src === 'string') {
       var res = this.src.split("#");
@@ -438,9 +413,6 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  /**
-   * Parse page parameter if acceptable, example: page=3
-   */
   private parsePageParameter(part: string) {
     const parameter = part.split("=");
     if (parameter.length > 1 && part.indexOf('page') !== -1) {
@@ -449,10 +421,6 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  /**
-   * Parse zoom parameter if acceptable
-   * Examples: zoom=page, zoom=31, zoom=width, zoom=height
-   */
   private parseZoomParameter(part: string) {
     const parameter = part.split("=");
     if (parameter.length > 1 && part.indexOf('zoom') !== -1) {
@@ -466,9 +434,6 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  /**
-   * Load the specified document
-   */
   private loadFile() {
     this.loaded = false;
     if (this.src) {
@@ -481,20 +446,20 @@ export class SimplePdfViewerComponent implements OnInit {
       }
 
       // progress
-      progressSrc.onProgress = (progressData: PDFProgressData) => {
+      progressSrc.onProgress = (progressData: PDF.PDFProgressData) => {
         this.onProgress.emit(new SimpleProgressData(progressData.loaded, progressData.total));
       };
 
       // loaded
-      (<PDFPromise<PDFDocumentProxy>>progressSrc.promise).then(pdfDocument => {
+      (<PDF.PDFPromise<PDF.PDFDocumentProxy>>progressSrc.promise).then(pdfDocument => {
         this.pdfViewer.setDocument(pdfDocument);
         this.pdfViewer.currentScaleValue = SimplePdfViewerComponent.PDF_VIEWER_DEFAULT_SCALE;
         this.pdfLinkService.setDocument(pdfDocument, null);
         this.pdf = pdfDocument;
         this.information = [];
         this.outline = null;
-        this.pdf.getOutline().then((outline: SimpleOutlineNode[]) => {
-          this.outline = outline;
+        this.pdf.getOutline().then((nodes: PDF.PDFTreeNode[]) => {
+          this.outline = this.mapOutline(nodes);
         });
         this.pdf.getMetadata().then(information => {
           Object.getOwnPropertyNames(information.info).forEach(key => {
@@ -513,24 +478,20 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  /**
-   * Returns the HTML container element of the component
-   */
+  private mapOutline(nodes: PDF.PDFTreeNode[]): SimpleOutlineNode[] {
+    return nodes.map(node => new SimpleOutlineNode(node.title, node.dest, this.mapOutline(node.items)), this);
+  }
+
   private getContainer(): HTMLElement {
     return this.element.nativeElement.querySelector('div') as HTMLElement;
   }
 
   /**
    * Returns the basic information about the PDF document
-   * 
    */
   public getDocumentInformation(): SimpleDocumentInfo[] {
     return this.loaded && !!this.information ? this.information : [];
   }
-
-  /* ***************************************************
-   * RESIZING AND ZOOMING
-   ***************************************************/
 
   /**
    * Returns the value of the viewport scale
@@ -581,8 +542,8 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   public zoomFullPage(): void {
     if (this.isDocumentLoaded()) {
-      this.pdf.getPage(this.currentPage).then((page: PDFPageProxy) => {
-        const scale = this.getScale(page.getViewport(1, this.rotation), ScalePriority.FULL);
+      this.pdf.getPage(this.currentPage).then((page: PDF.PDFPageProxy) => {
+        const scale = this.getScale(page, ScalePriority.FULL);
         this.setZoom(scale);
       });
     }
@@ -593,8 +554,8 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   public zoomPageWidth(): void {
     if (this.isDocumentLoaded()) {
-      this.pdf.getPage(this.currentPage).then((page: PDFPageProxy) => {
-        const scale = this.getScale(page.getViewport(1, this.rotation), ScalePriority.WIDTH);
+      this.pdf.getPage(this.currentPage).then((page: PDF.PDFPageProxy) => {
+        const scale = this.getScale(page, ScalePriority.WIDTH);
         this.setZoom(scale);
       });
     }
@@ -605,18 +566,15 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   public zoomPageHeight(): void {
     if (this.isDocumentLoaded()) {
-      this.pdf.getPage(this.currentPage).then((page: PDFPageProxy) => {
-        const scale = this.getScale(page.getViewport(1, this.rotation), ScalePriority.HEIGHT);
+      this.pdf.getPage(this.currentPage).then((page: PDF.PDFPageProxy) => {
+        const scale = this.getScale(page, ScalePriority.HEIGHT);
         this.setZoom(scale);
       });
     }
   }
 
-  /**
-   * Get the proper scale of the actual viewport to fit
-   * @param viewport actual viewport
-   */
-  private getScale(viewport: PDFPageViewport, priority: ScalePriority = ScalePriority.FULL): number {
+  private getScale(page: PDF.PDFPageProxy, priority: ScalePriority = ScalePriority.FULL): number {
+    const viewport = page.getViewport(1, this.rotation);
     const offsetHeight = this.getContainer().offsetHeight;
     const offsetWidth = this.getContainer().offsetWidth;
     if (offsetHeight === 0 || offsetWidth === 0) {
@@ -644,7 +602,7 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-    /**
+  /**
    * Set the zoom of the document in percent
    * @param zoom The scale value in percent
    */
@@ -654,9 +612,6 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  /**
-   * Set the initial zoom to the specified value, it is full page by default. 
-   */
   private initZoom() {
     switch (this.zoom_open) {
       case SimplePdfViewerComponent.ZOOM_PERCENT: 
@@ -673,10 +628,6 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  /**
-   * Normalize the scale to fit in the scale boundary
-   * @param scale
-   */
   private normalizeScale(scale): number {
     let normalizedScale = scale;
     if (scale > SimplePdfViewerComponent.MAX_ZOOM) {
@@ -687,14 +638,11 @@ export class SimplePdfViewerComponent implements OnInit {
     return normalizedScale;
   }
 
-  /* ***************************************************
-   * SEARCHING
-   ***************************************************/
-
   /**
    * Starts case sensitive/insensitive text search and navigate to the first match (from the actual page)
    * @param text searched text
-   * @param caseSensitive set true to use case sensitive searching
+   * @param caseSensitive set true to use case sensitive searching (false by default)
+   * @param phraseSearch set true to use full phrase search (that's the default)
    */
   public search(text: string, caseSensitive: boolean = false, phraseSearch: boolean = true): void {
     if (this.isDocumentLoaded()) {
@@ -732,10 +680,6 @@ export class SimplePdfViewerComponent implements OnInit {
     this.stepMatch(true);
   }
 
-  /**
-   * Navigates to the next or previous search match if there were multiple hits
-   * @param findPrevious set true to the previous match
-   */
   private stepMatch(findPrevious: boolean): void {
     if (this.isDocumentLoaded() && this.getNumberOfMatches() > 1) {
       if (this.searchPrevious !== findPrevious) {
@@ -748,9 +692,6 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  /**
-   * Search again with the updated configuration
-   */
   private searchAgain(): void {
     if (this.isDocumentLoaded()) {
       this.pdfFindController.executeCommand(SimplePdfViewerComponent.PDF_FINDER_AGAIN_COMMAND, {
@@ -787,20 +728,11 @@ export class SimplePdfViewerComponent implements OnInit {
     return this.searching;
   }
 
-  /**
-   * Called if the search result count is updated. It triggers the onUpdateResultsCount
-   * emitter.
-   */
   private onUpdateResultsCount(): void {
     this.pdfFindController.onUpdateResultsCount = null;
     this.currentPage = this.pdfViewer._currentPageNumber;
   }
 
-  /**
-   * Called if the search state is updated. It triggers the onUpdateState
-   * emitter.
-   * @param state the state of the current search
-   */
   private onUpdateState(state: SimpleSearchState): void {
     this.onSearchStateChange.emit(state);
     this.searching = state === SimpleSearchState.PENDING;
@@ -808,10 +740,6 @@ export class SimplePdfViewerComponent implements OnInit {
       this.pdfFindController.onUpdateState = null;
     }
   }
-
-  /* ***************************************************
-   * NAVIGATION
-   ***************************************************/
 
   /**
    * Returns the number of the actual page
@@ -914,10 +842,6 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  /* ***************************************************
-   * ROTATION
-   ***************************************************/
-
   /**
    * Sets the rotation to the default 0 degree
    */
@@ -946,10 +870,6 @@ export class SimplePdfViewerComponent implements OnInit {
     return this.rotation;
   }
 
-  /**
-   * Rotate the document with the specified angle (can be negative)
-   * @param angle rotation angle
-   */
   private rotate(angle: number = 90): void {
     if (this.isDocumentLoaded()) {
       this.rotation = parseInt(`${angle}`, 10);
