@@ -10,9 +10,9 @@
   <a href="https://david-dm.org/viktorhajer/simple-pdf-viewer" title="dependencies status">
     <img src="https://david-dm.org/viktorhajer/simple-pdf-viewer/status.svg"/>
   </a>
-  <!--a href="https://travis-ci.org/viktorhajer/simple-pdf-viewer" title="test">
+  <!a href="https://travis-ci.org/viktorhajer/simple-pdf-viewer" title="test">
     <img src="https://travis-ci.org/viktorhajer/simple-pdf-viewer.svg?branch=master"/>
-  </a-->
+  </a>
   <a href="https://www.paypal.me/viktorhajer" title="Donate to this project using Paypal">
     <img src="https://img.shields.io/badge/paypal-donate-green.svg" alt="PayPal donate button" />
   </a>
