@@ -91,7 +91,7 @@ In your component html
 
 | Signature        | Short Description | 
 | :------------- |:-------------| 
-| `src: string \| Uint8Array \| PDFSource` | Source of the PDF document (Required) |
+| `src: string &#124; Uint8Array &#124; PDFSource` | Source of the PDF document (Required) |
 
 ### Output events
 
