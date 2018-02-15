@@ -337,6 +337,7 @@ export class SimplePdfViewerComponent implements OnInit {
         PDFJS.workerSrc = workerUrl;
       }
       this.initPDFJS();
+      this.resetParameters();
       this.setAndParseSrc(this.src);
       this.loadFile();
     }
@@ -349,6 +350,7 @@ export class SimplePdfViewerComponent implements OnInit {
    * @param zoom The specified zoom value, default: full page
    */
   public openDocument(src: string | Uint8Array | PDF.PDFSource, page: number = 1, zoom: number | string = 'page'): void {
+    this.resetParameters();
     this.parsePageParameter(`page=${page}`);
     this.parseZoomParameter(`zoom=${zoom}`);
     this.setAndParseSrc(src);
@@ -383,6 +385,7 @@ export class SimplePdfViewerComponent implements OnInit {
     this.pdfViewer.setFindController(this.pdfFindController);
     container.addEventListener('pagesinit', this.pagesinitEventListener.bind(this));
     container.addEventListener('pagechange', this.pagechangeEventListener.bind(this));
+    container.addEventListener('updateviewarea', this.updateviewareaEventListener.bind(this));
   }
 
   private pagesinitEventListener() {
@@ -396,6 +399,9 @@ export class SimplePdfViewerComponent implements OnInit {
 
   private pagechangeEventListener() {
     this.currentPage = this.pdfViewer._currentPageNumber;
+  }
+
+  private updateviewareaEventListener() {
     this.zoom = this.pdfViewer._currentScale;
   }
 
@@ -456,8 +462,6 @@ export class SimplePdfViewerComponent implements OnInit {
         this.pdfViewer.currentScaleValue = SimplePdfViewerComponent.PDF_VIEWER_DEFAULT_SCALE;
         this.pdfLinkService.setDocument(pdfDocument, null);
         this.pdf = pdfDocument;
-        this.information = [];
-        this.outline = null;
         this.pdf.getOutline().then((nodes: PDF.PDFTreeNode[]) => {
           this.outline = this.mapOutline(nodes);
         });
@@ -470,12 +474,18 @@ export class SimplePdfViewerComponent implements OnInit {
         this.numberOfPages = this.pdf.numPages;
         this.loaded = true;
       }, (error: any) => {
-        this.numberOfPages = 1;
-        this.zoom = 1;
-        this.information = [];
+        this.resetParameters();
         this.onError.emit(error);
       });
     }
+  }
+
+  private resetParameters() {
+    this.information = [];
+    this.outline = null;
+    this.currentPage = 1;
+    this.zoom = 1;
+    this.numberOfPages = 1;
   }
 
   private mapOutline(nodes: PDF.PDFTreeNode[]): SimpleOutlineNode[] {
@@ -806,7 +816,7 @@ export class SimplePdfViewerComponent implements OnInit {
   public nextPage(): void {
     if (this.isDocumentLoaded()) {
       this.currentPage++;
-      this.navigateToPage(this.currentPage);
+      this.navigateToPage(this.currentPage, 1);
     }
   }
 
@@ -816,25 +826,24 @@ export class SimplePdfViewerComponent implements OnInit {
   public prevPage(): void {
     if (this.isDocumentLoaded()) {
       this.currentPage--;
-      this.navigateToPage(this.currentPage);
+      this.navigateToPage(this.currentPage, this.numberOfPages);
     }
   }
 
   /**
    * Navigates to the specified page
    * @param page the number of the page
+   * @param pageDefault
    */
-  public navigateToPage(page?: number): void {
+  public navigateToPage(page: number, pageDefault?: number): void {
     if (this.isDocumentLoaded()) {
-      if (page) {
-        const pageInt = parseInt(`${page}`, 10);
-        this.currentPage = pageInt ? pageInt : this.currentPage;
-      }
+      const pageInt = parseInt(`${page}`, 10);
+      this.currentPage = pageInt ? pageInt : this.currentPage;
       if (this.currentPage > this.numberOfPages) {
-        this.currentPage = this.numberOfPages;
+        this.currentPage = pageDefault ? pageDefault : this.numberOfPages;
       }
       if (this.currentPage <= 0) {
-        this.currentPage = 1;
+        this.currentPage = pageDefault ? pageDefault : 1;
       }
       this.pdfViewer.scrollPageIntoView({
         pageNumber: this.currentPage

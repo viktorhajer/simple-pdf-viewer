@@ -11,7 +11,9 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "lint": "ng lint",
+    "docs": "typedoc libs/simple-pdf-viewer/index.ts",
     "deploy": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\"",
+    "postdeploy": "npm run docs",
     "packagr": "ng-packagr -p libs/simple-pdf-viewer/package.json",
     "prerelease": "npm run packagr",
     "release": "np"
@@ -67,6 +69,7 @@
     "rxjs": "^5.5.6",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
+    "typedoc": "^0.10.0",
     "typescript": "2.6.1",
     "zone.js": "^0.8.19"
   }

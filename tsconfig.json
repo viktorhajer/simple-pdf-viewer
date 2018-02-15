@@ -15,5 +15,14 @@
       "es2017",
       "dom"
     ]
+  },
+  "typedocOptions": {
+    "readme": "README.md",
+    "mode": "modules",
+    "out": "docs/api",
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "preserveConstEnums": true,
+    "module": "commonjs"
   }
 }
