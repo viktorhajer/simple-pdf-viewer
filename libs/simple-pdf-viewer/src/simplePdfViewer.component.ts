@@ -479,6 +479,7 @@ export class SimplePdfViewerComponent implements OnInit {
   }
 
   private mapOutline(nodes: PDF.PDFTreeNode[]): SimpleOutlineNode[] {
+    return nodes ? nodes.map(node => new SimpleOutlineNode(node.title, node.dest, this.mapOutline(node.items)), this) : [];
   }
 
   private getContainer(): HTMLElement {
