@@ -20,4 +20,5 @@ cache:
     - ./node_modules
 notifications:
   slack:
+    on_failure: change
     on_success: change
