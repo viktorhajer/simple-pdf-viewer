@@ -479,7 +479,6 @@ export class SimplePdfViewerComponent implements OnInit {
   }
 
   private mapOutline(nodes: PDF.PDFTreeNode[]): SimpleOutlineNode[] {
-    return nodes.map(node => new SimpleOutlineNode(node.title, node.dest, this.mapOutline(node.items)), this);
   }
 
   private getContainer(): HTMLElement {
@@ -827,14 +826,14 @@ export class SimplePdfViewerComponent implements OnInit {
   public navigateToPage(page?: number): void {
     if (this.isDocumentLoaded()) {
       if (page) {
-        const pageInt = Math.abs(parseInt(`${page}`, 10));
+        const pageInt = parseInt(`${page}`, 10);
         this.currentPage = pageInt ? pageInt : this.currentPage;
       }
       if (this.currentPage > this.numberOfPages) {
-        this.currentPage = 1;
+        this.currentPage = this.numberOfPages;
       }
       if (this.currentPage <= 0) {
-        this.currentPage = this.numberOfPages;
+        this.currentPage = 1;
       }
       this.pdfViewer.scrollPageIntoView({
         pageNumber: this.currentPage

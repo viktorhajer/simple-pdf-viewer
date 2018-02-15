@@ -30,7 +30,7 @@
     <!-- Sub Menus -->
     <div id="subMenus">
       <!-- Document -->
-      <div class="subMenu" *ngIf="isActiveMenu(1)">
+      <div class="subMenu" [hidden]="!isActiveMenu(1)">
           <div class="subMenuItem" (click)="urlField.click()">Open Document...</div>
           <input style="display: none;" #urlField type="file" (change)="openDocument(urlField.files, firstPageBox, firstZoomBox)" accept="application/pdf">
           <div class="subMenuItemGroup">
@@ -44,7 +44,7 @@
           <p>Zoom value can be one of the followings: [integer], 'page', 'width', 'height'</p>
       </div>
       <!-- Table of Content -->
-      <div class="subMenu" *ngIf="isActiveMenu(2)">
+      <div class="subMenu" [hidden]="!isActiveMenu(2)">
         <div class="outline" *ngIf="pdfViewer.hasOutline()">
           <h2>Table of Content</h2>
           <ul *ngFor="let item of pdfViewer.getOutline()" class="outline-list">
@@ -61,7 +61,7 @@
         </p>
       </div>
       <!-- Navigation -->
-      <div class="subMenu" *ngIf="isActiveMenu(3)">
+      <div class="subMenu" [hidden]="!isActiveMenu(3)">
         <div class="subMenuItemGroup">
           <div class="subMenuItem" (click)="pdfViewer.firstPage()">First Page</div>
           <div class="subMenuItem" (click)="pdfViewer.lastPage()">Last Page</div>
@@ -83,7 +83,7 @@
         </p>
       </div>
       <!-- Zooming -->
-      <div class="subMenu" *ngIf="isActiveMenu(4)">
+      <div class="subMenu" [hidden]="!isActiveMenu(4)">
         <div class="subMenuItemGroup">
           <div class="subMenuItem" (click)="pdfViewer.zoomIn()">In</div>
           <div class="subMenuItem" (click)="pdfViewer.setZoom(0.5)">50%</div>
@@ -103,12 +103,12 @@
             <div class="clear"></div>
           </div>
           <p>
-            Actual zoom value: {{getZoomPercent()}} % <br/>
+            Actual zoom value: {{pdfViewer.getZoomPercent()}} % <br/>
             Constraint: 5% <= Zoom <= 500%
           </p>
       </div>
       <!-- Rotation -->
-      <div class="subMenu" *ngIf="isActiveMenu(5)">
+      <div class="subMenu" [hidden]="!isActiveMenu(5)">
         <div class="subMenuItemGroup">
           <div class="subMenuItem" (click)="pdfViewer.turnLeft()"><span class="fa fa-rotate-left"></span></div>
           <div class="subMenuItem" (click)="pdfViewer.resetRotation()">Reset</div>
@@ -118,7 +118,7 @@
         <p>Actual rotation: {{pdfViewer.getRotation()}} &deg;</p>
       </div>
       <!-- Searching -->
-      <div class="subMenu" *ngIf="isActiveMenu(6)">
+      <div class="subMenu" [hidden]="!isActiveMenu(6)">
         <div class="subMenuItemGroup">
           <input type="input" [(ngModel)]="searchBox" (keyup.enter)="pdfViewer.search(searchBox)" placeholder="Type...">
           <div class="subMenuItem fa fa-search" (click)="pdfViewer.search(searchBox)"></div>
@@ -133,7 +133,7 @@
         <p *ngIf="pdfViewer.isSearching()">Searching...</p>
       </div>
       <!-- Information -->
-      <div class="subMenu" *ngIf="isActiveMenu(7)">
+      <div class="subMenu" [hidden]="!isActiveMenu(7)">
           <div class="outline">
             <ul class="outline-list" *ngFor="let info of pdfViewer.getDocumentInformation()">
               <li class="outline-main-item">{{info.key}}:</li>
@@ -159,6 +159,8 @@
 
 <footer>
   <p *ngIf="pdfViewer.isDocumentLoaded()">
+    <span class="fa fa-folder-open small" (click)="urlField.click()"></span>
+    |
     <span class="fa fa-angle-double-left" (click)="pdfViewer.firstPage()"></span>
     <span class="fa fa-angle-left" (click)="pdfViewer.prevPage()"></span>
     {{pdfViewer.getCurrentPage() + ' / ' + pdfViewer.getNumberOfPages()}} 
@@ -175,5 +177,8 @@
     <span class="fa fa-rotate-left small" (click)="pdfViewer.turnLeft()"></span>
     {{pdfViewer.getRotation()}}&deg;
     <span class="fa fa-rotate-right small" (click)="pdfViewer.turnRight()"></span>
+    |
+    <span class="fa fa-align-left small" (click)="setActiveMenu(2)"></span>
+    <span class="fa fa-search small" (click)="setActiveMenu(6)"></span>
   </p>
 </footer>
