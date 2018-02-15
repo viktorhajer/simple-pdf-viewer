@@ -10,7 +10,7 @@
   <a href="https://david-dm.org/viktorhajer/simple-pdf-viewer" title="dependencies status">
     <img src="https://david-dm.org/viktorhajer/simple-pdf-viewer/status.svg"/>
   </a>
-  <!a href="https://travis-ci.org/viktorhajer/simple-pdf-viewer" title="test">
+  <a href="https://travis-ci.org/viktorhajer/simple-pdf-viewer" title="test">
     <img src="https://travis-ci.org/viktorhajer/simple-pdf-viewer.svg?branch=master"/>
   </a>
   <a href="https://www.paypal.me/viktorhajer" title="Donate to this project using Paypal">
@@ -106,7 +106,7 @@ In your component html
 
 | Signature        | Short Description | 
 | :------------- |:-------------| 
-| `openDocument(src: string \| Uint8Array \| PDFSource, page?: number, zoom?: number \| string): void` | Open a PDF document at the specified page (at the first page by default with full page zoom) |
+| `openDocument(src: string &#124; Uint8Array &#124; PDFSource, page?: number, zoom?: number &#124; string): void` | Open a PDF document at the specified page (at the first page by default with full page zoom) |
 | `isDocumentLoaded(): boolean` | Returns whether the PDF document is loaded properly |
 | `getDocumentInformation(): SimpleDocumentInfo[]` | Returns the basic information about the PDF document |
 | `getZoom(): number` | Returns the value of the viewport scale |
