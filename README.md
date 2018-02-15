@@ -24,6 +24,10 @@ This is a simple but smart PDF Viewer component for angular/ionic websites.
 
 [https://viktorhajer.github.io/simple-pdf-viewer/](https://viktorhajer.github.io/simple-pdf-viewer/)
 
+## Type Documentation
+
+[https://viktorhajer.github.io/simple-pdf-viewer/api/](https://viktorhajer.github.io/simple-pdf-viewer/api/)
+
 ## Install
 
 ```
