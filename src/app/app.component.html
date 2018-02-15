@@ -32,7 +32,6 @@
       <!-- Document -->
       <div class="subMenu" [hidden]="!isActiveMenu(1)">
           <div class="subMenuItem" (click)="urlField.click()">Open Document...</div>
-          <input style="display: none;" #urlField type="file" (change)="openDocument(urlField.files, firstPageBox, firstZoomBox)" accept="application/pdf">
           <div class="subMenuItemGroup">
             <input  type="number" pattern="-?[0-9]*(\.[0-9]+)?" [(ngModel)]="firstPageBox" placeholder="First page">
             <div class="clear"></div>
@@ -41,6 +40,7 @@
             <input type="input" [(ngModel)]="firstZoomBox" placeholder="Zoom value">
             <div class="clear"></div>
           </div>
+          <input style="display: none;" #urlField type="file" (change)="openDocument(urlField.files, firstPageBox, firstZoomBox)" accept="application/pdf">
           <p>Zoom value can be one of the followings: [integer], 'page', 'width', 'height'</p>
       </div>
       <!-- Table of Content -->

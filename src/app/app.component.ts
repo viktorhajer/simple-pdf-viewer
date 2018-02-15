@@ -15,6 +15,11 @@ export class AppComponent {
   menu = 1;
   backButtonVisible = false;
   errorMsg = '';
+  firstPageBox: any;
+  firstZoomBox: any;
+  pageBox: any;
+  zoomBox: any;
+  searchBox: any;
 
   @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
 
