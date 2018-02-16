@@ -28,3 +28,14 @@ export class SimpleOutlineNode {
 export class SimpleProgressData {
   constructor(public loaded: number, public total: number){};
 }
+
+/**
+ * Representation of the PDF bookmark
+ */
+export class SimplePDFBookmark {
+  constructor(public page: number, public zoom: number, public x: number, public y: number) {
+  }
+  toDestination(): object {
+    return {pageNumber: this.page, destArray : [null, {name: 'XYZ'}, this.x, this.y, this.zoom]};
+  }
+}

@@ -2,7 +2,7 @@
  * Created by Viktor Hajer on 02/08/2018.
  */
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData } from './simplePdfViewer.models';
+import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData, SimplePDFBookmark } from './simplePdfViewer.models';
 
 declare var require: any;
 
@@ -883,6 +883,32 @@ export class SimplePdfViewerComponent implements OnInit {
     if (this.isDocumentLoaded()) {
       this.rotation = parseInt(`${angle}`, 10);
       this.pdfViewer.pagesRotation = this.rotation;
+    }
+  }
+
+  /**
+   * Creates bookmark object based on the current viewport and page number. 
+   * The object can be passed to the #navigateToBookmark method. 
+   */
+  public createBookmark(): PDF.PDFPromise<SimplePDFBookmark> {
+    if(!this.isDocumentLoaded()) {
+      return;
+    }
+    return this.pdf.getPage(this.currentPage).then((p: PDF.PDFPageProxy) => {
+      const viewport = p.getViewport(1, this.rotation);
+      const container = this.getContainer();
+      const x = container.scrollLeft / container.scrollWidth * viewport.width;
+      const y = (container.scrollHeight - container.scrollTop) / container.scrollHeight * viewport.height;
+      return new SimplePDFBookmark(this.currentPage, this.zoom, x, y);
+    });
+  }
+
+  /**
+   * Navigates to the specified bookmark place
+   */
+  public navigateToBookmark(bookmark: SimplePDFBookmark) {
+    if(this.isDocumentLoaded() && !!bookmark) {
+      this.pdfViewer.scrollPageIntoView(bookmark.toDestination());
     }
   }
 }

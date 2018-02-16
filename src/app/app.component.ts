@@ -15,6 +15,8 @@ export class AppComponent {
   menu = 1;
   backButtonVisible = false;
   errorMsg = '';
+  bookmarks: any[] = [];
+
   firstPageBox: any;
   firstZoomBox: any;
   pageBox: any;
@@ -41,6 +43,7 @@ export class AppComponent {
     if (documents && documents.length > 0) {
       const fileReader: FileReader = new FileReader();
       fileReader.onload = () => {
+        this.bookmarks = [];
         this.pdfViewer.openDocument(new Uint8Array(fileReader.result), firstPage, firstZoom);
       };
       fileReader.readAsArrayBuffer(documents[0]);
@@ -58,4 +61,13 @@ export class AppComponent {
   onLoadComplete()  {
     console.log('Document is loaded');
   }
+
+  createBookmark() {
+    this.pdfViewer.createBookmark().then(bookmark => {
+      if(bookmark) {
+        this.bookmarks.push(bookmark);
+      }
+    })
+  }
+
 }

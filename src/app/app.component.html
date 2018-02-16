@@ -20,6 +20,7 @@
           <div class="mainMenuItem" [class.active]="isActiveMenu(4)" (click)="setActiveMenu(4)">Zooming</div>
           <div class="mainMenuItem" [class.active]="isActiveMenu(5)" (click)="setActiveMenu(5)">Rotation</div>
           <div class="mainMenuItem" [class.active]="isActiveMenu(6)" (click)="setActiveMenu(6)">Searching</div>
+          <div class="mainMenuItem" [class.active]="isActiveMenu(8)" (click)="setActiveMenu(8)">Bookmarks</div>
         </div>
       </div>
       <div *ngIf="backButtonVisible">
@@ -140,6 +141,11 @@
               <li class="outline-sub-item">{{info.value}}</li>
             </ul>
           </div>
+      </div>
+      <!-- Bookmarks -->
+      <div class="subMenu" [hidden]="!isActiveMenu(8)">
+        <div class="subMenuItem" (click)="createBookmark()">Create Bookmark</div>
+        <div class="subMenuItem" *ngFor="let bookmark of bookmarks; let i = index" (click)="pdfViewer.navigateToBookmark(bookmark)">Bookmark #{{i}}</div>
       </div>
     </div>
 
