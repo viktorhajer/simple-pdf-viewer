@@ -33,7 +33,7 @@ export class SimpleProgressData {
  * Representation of the PDF bookmark
  */
 export class SimplePDFBookmark {
-  constructor(public page: number, public zoom: number, public x: number, public y: number) {
+  constructor(public page: number, public zoom: number, public rotation: number, public x: number, public y: number) {
   }
   toDestination(): object {
     return {pageNumber: this.page, destArray : [null, {name: 'XYZ'}, this.x, this.y, this.zoom]};

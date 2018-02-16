@@ -286,8 +286,8 @@ export class SimplePdfViewerComponent implements OnInit {
   private static readonly ZOOM_PERCENT: string = 'percent';
 
   private static readonly CSS_UNITS: number = 96.0 / 72.0;
-  private static readonly PAGE_RESIZE_BORDER_HEIGHT: number = 30;
-  private static readonly PAGE_RESIZE_BORDER_WIDTH: number = 50;
+  private static readonly PAGE_RESIZE_BORDER_HEIGHT: number = 15;
+  private static readonly PAGE_RESIZE_BORDER_WIDTH: number = 15;
   private static readonly ZOOM_UNIT = 0.1;
   private static readonly MAX_ZOOM = 5; // max. zoom 500%
   private static readonly MIN_ZOOM = 0.05; // min. zoom 5%
@@ -882,6 +882,11 @@ export class SimplePdfViewerComponent implements OnInit {
   private rotate(angle: number = 90): void {
     if (this.isDocumentLoaded()) {
       this.rotation = parseInt(`${angle}`, 10);
+      if (this.rotation === 270) {
+        this.rotation = -90;
+      } else if (this.rotation === -180) {
+        this.rotation = 180;
+      }
       this.pdfViewer.pagesRotation = this.rotation;
     }
   }
@@ -897,9 +902,23 @@ export class SimplePdfViewerComponent implements OnInit {
     return this.pdf.getPage(this.currentPage).then((p: PDF.PDFPageProxy) => {
       const viewport = p.getViewport(1, this.rotation);
       const container = this.getContainer();
-      const x = container.scrollLeft / container.scrollWidth * viewport.width;
-      const y = (container.scrollHeight - container.scrollTop) / container.scrollHeight * viewport.height;
-      return new SimplePDFBookmark(this.currentPage, this.zoom, x, y);
+      let x = container.scrollLeft / container.scrollWidth * viewport.width;
+      let y = (container.scrollHeight - container.scrollTop) / container.scrollHeight * viewport.height;
+      if(this.rotation === 90) {
+        y = container.scrollTop / container.scrollHeight * viewport.height;
+        let tmp = x;
+        x = y;
+        y = tmp;
+      } else if (this.rotation === 180) {
+        x = (container.scrollWidth - container.scrollLeft) / container.scrollWidth * viewport.width;
+        y = container.scrollTop / container.scrollHeight * viewport.height;
+      } else if (this.rotation === -90) {
+        x = (container.scrollWidth - container.scrollLeft) / container.scrollWidth * viewport.width;
+        let tmp = x;
+        x = y;
+        y = tmp;
+      }
+      return new SimplePDFBookmark(this.currentPage, this.zoom, this.rotation, x, y);
     });
   }
 
@@ -908,6 +927,7 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   public navigateToBookmark(bookmark: SimplePDFBookmark) {
     if(this.isDocumentLoaded() && !!bookmark) {
+      this.rotate(bookmark.rotation);
       this.pdfViewer.scrollPageIntoView(bookmark.toDestination());
     }
   }
