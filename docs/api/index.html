@@ -66,406 +66,132 @@
 			<div class="tsd-panel tsd-typography">
 				<h1 align="center">Simple PDF Viewer</h1>
 				<p align="center">
-					<!--a href="https://www.npmjs.com/package/simple-pdf-viewer">
-    <img src="https://img.shields.io/npm/dm/simple-pdf-viewer.svg?style=flat" alt="downloads">
-  </a-->
-  <a href="https://badge.fury.io/js/simple-pdf-viewer">
-    <img src="https://badge.fury.io/js/simple-pdf-viewer.svg" alt="npm version">
-  </a>
-  <a href="https://david-dm.org/viktorhajer/simple-pdf-viewer" title="dependencies status">
-    <img src="https://david-dm.org/viktorhajer/simple-pdf-viewer/status.svg"/>
-  </a>
-  <a href="https://travis-ci.org/viktorhajer/simple-pdf-viewer" title="test">
-    <img src="https://travis-ci.org/viktorhajer/simple-pdf-viewer.svg?branch=master"/>
-  </a>
-  <a href="https://www.paypal.me/viktorhajer" title="Donate to this project using Paypal">
-    <img src="https://img.shields.io/badge/paypal-donate-green.svg" alt="PayPal donate button" />
-  </a>
-</p>
-
-<p>This is a simple but smart PDF Viewer component for angular/ionic websites. </p>
-<h2 id="demo-page">Demo page</h2>
-<p><a href="https://viktorhajer.github.io/simple-pdf-viewer/">https://viktorhajer.github.io/simple-pdf-viewer/</a></p>
-<h2 id="type-documentation">Type Documentation</h2>
-<p><a href="https://viktorhajer.github.io/simple-pdf-viewer/api/">https://viktorhajer.github.io/simple-pdf-viewer/api/</a></p>
-<h2 id="install">Install</h2>
-<pre><code>npm <span class="hljs-keyword">install</span> simple-pdf-viewer <span class="hljs-comment">--save</span>
-</code></pre><h2 id="usage">Usage</h2>
-<p><em>(for more detailed example see this project also visit the demo page)</em></p>
-<p>Add <code>SimplePdfViewerModule</code> to your module&#39;s <code>imports</code></p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { BrowserModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/platform-browser'</span>;
-<span class="hljs-keyword">import</span> { NgModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
-<span class="hljs-keyword">import</span> { AppComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./app.component'</span>;
-<span class="hljs-keyword">import</span> { FormsModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/forms'</span>;
-<span class="hljs-keyword">import</span> { SimplePdfViewerModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-pdf-viewer'</span>;
-
-@NgModule({
-  <span class="hljs-attr">declarations</span>: [
-    AppComponent
-  ],
-  <span class="hljs-attr">imports</span>: [
-    BrowserModule,
-    FormsModule,
-    SimplePdfViewerModule
-  ],
-  <span class="hljs-attr">providers</span>: [],
-  <span class="hljs-attr">bootstrap</span>: [AppComponent]
-})
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppModule</span> </span>{ }
-</code></pre>
-<p>In your component HTML:</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"viewer"</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- Simple PDF Viewer: open the test.pdf at the second page --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">simple-pdf-viewer</span> #<span class="hljs-attr">pdfViewer</span> [<span class="hljs-attr">src</span>]=<span class="hljs-string">"'test.pdf#page=2'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">simple-pdf-viewer</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
-
-<span class="hljs-comment">&lt;!-- Example actions --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"pdfViewer.zoomIn()"</span>&gt;</span>Zoom In<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"pdfViewer.nextPage()"</span>&gt;</span>Next Page<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"pdfViewer.turnLeft()"</span>&gt;</span>Turn the document left<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"pdfViewer.search('PDF')"</span>&gt;</span>Search the world 'PDF'<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-
-<span class="hljs-comment">&lt;!-- Information --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Number of pages: {{ pdfViewer.getNumberOfPages() }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Actual page: {{ pdfViewer.getCurrentPage() }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Zoom: {{ pdfViewer.getZoomPercent() }} %<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Meta: 
-    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> *<span class="hljs-attr">ngFor</span>=<span class="hljs-string">"let info of pdfViewer.getDocumentInformation()"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>{{info.key}}: {{info.value}}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-</code></pre>
-<p>In your component class: </p>
-<pre><code class="lang-js">@Component({...})
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>{
-
-  @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
-  bookmarks: SimplePDFBookmark[] = [];
-
-  <span class="hljs-comment">// how to open PDF document</span>
-  openDocument(<span class="hljs-built_in">document</span>: File) {
-    <span class="hljs-keyword">const</span> fileReader: FileReader = <span class="hljs-keyword">new</span> FileReader();
-    fileReader.onload = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-      <span class="hljs-keyword">this</span>.pdfViewer.openDocument(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(fileReader.result));
-    };
-    fileReader.readAsArrayBuffer(<span class="hljs-built_in">document</span>);
-  }
-
-  <span class="hljs-comment">// how to create bookmark</span>
-  createBookmark() {
-    <span class="hljs-keyword">this</span>.pdfViewer.createBookmark().then(<span class="hljs-function"><span class="hljs-params">bookmark</span> =&gt;</span> {
-      <span class="hljs-keyword">if</span>(bookmark) {
-        <span class="hljs-keyword">this</span>.bookmarks.push(bookmark);
-      }
-    })
-  }
-}
-</code></pre>
-<h2 id="api-documentation">API Documentation</h2>
-<h3 id="input-parameter">Input parameter</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Signature</th>
-<th style="text-align:left">Short Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>src: string or Uint8Array or PDFSource</code></td>
-<td style="text-align:left">Source of the PDF document (Required)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="output-events">Output events</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Signature</th>
-<th style="text-align:left">Short Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>onLoadComplete: EventEmitter&lt;void&gt;</code></td>
-<td style="text-align:left">Get event when a document is loaded</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>onError: EventEmitter&lt;any&gt;</code></td>
-<td style="text-align:left">Get event when error occurred during the loading</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>onProgress: EventEmitter&lt;SimpleProgressData&gt;</code></td>
-<td style="text-align:left">Loading progress callback</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>onSearchStateChange: EventEmitter&lt;SimpleSearchState&gt;</code></td>
-<td style="text-align:left">Get event about search status</td>
-</tr>
-</tbody>
-</table>
-<h3 id="methods">Methods</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Signature</th>
-<th style="text-align:left">Short Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>openDocument(src: string or Uint8Array or PDFSource, startAt?: SimplePDFBookmark): void</code></td>
-<td style="text-align:left">Open a PDF document at the specified bookmark (at the first page by default with 75% zoom)</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>isDocumentLoaded(): boolean</code></td>
-<td style="text-align:left">Returns whether the PDF document is loaded properly</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>getDocumentInformation(): SimpleDocumentInfo[]</code></td>
-<td style="text-align:left">Returns the basic information about the PDF document</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>getZoom(): number</code></td>
-<td style="text-align:left">Returns the value of the viewport scale</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>getZoomPercent(): number</code></td>
-<td style="text-align:left">Returns the value of the viewport scale in %</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>setZoom(scale: number): void</code></td>
-<td style="text-align:left">Set the zoom of the document in double</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>setZoomInPercent(zoom: number): void</code></td>
-<td style="text-align:left">Set the zoom of the document in percent</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>zoomIn(): void</code></td>
-<td style="text-align:left">Increases the scale of the PDF viewport</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>zoomOut(): void</code></td>
-<td style="text-align:left">Decreases the scale of the PDF viewport</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>zoomReset(): void</code></td>
-<td style="text-align:left">Sets the original viewport scale back to 1.0</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>zoomFullPage(): void</code></td>
-<td style="text-align:left">Sets the scale of the PDF viewport to fit in the actual screen</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>zoomPageWidth(): void</code></td>
-<td style="text-align:left">Sets the scale of the PDF viewport to fit in the actual screen (width priority)</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>zoomPageHeight(): void</code></td>
-<td style="text-align:left">Sets the scale of the PDF viewport to fit in the actual screen (height priority)</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>search(text: string, caseSensitive?: boolean, phraseSearch?: boolean): void</code></td>
-<td style="text-align:left">Starts case sensitive/insensitive text search and navigate to the first match (from the actual page). Phrase search can be turned on/off.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>nextMatch(): void</code></td>
-<td style="text-align:left">Navigates to the next search match if there were multiple hits</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>previousMatch(): void</code></td>
-<td style="text-align:left">Navigates to the previous search match if there were multiple hits</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>getNumberOfMatches(): number</code></td>
-<td style="text-align:left">Returns the number of the search hits</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>hasMatches(): boolean</code></td>
-<td style="text-align:left">Returns whether there is a matched item</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>isSearching(): boolean</code></td>
-<td style="text-align:left">Returns whether the search is in-progress</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>getCurrentPage(): number</code></td>
-<td style="text-align:left">Returns the number of the actual page</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>getNumberOfPages(): number</code></td>
-<td style="text-align:left">Returns the number of the pages</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>getOutline(): SimpleOutlineNode[]</code></td>
-<td style="text-align:left">Returns outline / table of content in tree structure</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>hasOutline(): boolean</code></td>
-<td style="text-align:left">Returns whether the outline is available</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>navigateToChapter(destination: any): void</code></td>
-<td style="text-align:left">Navigates to the specified (outline) destination/chapter</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>firstPage(): void</code></td>
-<td style="text-align:left">Navigates to the first page</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>lastPage(): void</code></td>
-<td style="text-align:left">Navigates to the last page</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>nextPage(): void</code></td>
-<td style="text-align:left">Navigates to the next page</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>prevPage(): void</code></td>
-<td style="text-align:left">Navigates to the previous page</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>navigateToPage(page?: number): void</code></td>
-<td style="text-align:left">Navigates to the specified page</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>getRotation(): number</code></td>
-<td style="text-align:left">Returns the actual rotation value in degree</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>resetRotation(): void</code></td>
-<td style="text-align:left">Sets the rotation to the default 0 degree</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>turnLeft(): void</code></td>
-<td style="text-align:left">Turns left the document with 90 degree (counterclockwise)</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>turnRight(): void</code></td>
-<td style="text-align:left">Turns right the document with 90 degree (clockwise)</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>createBookmark(): PDF.PDFPromise&lt;SimplePDFBookmark&gt;</code></td>
-<td style="text-align:left">Creates bookmark object based on the current viewport and page number. The object can be passed to the <em>navigateToBookmark(...)</em> method.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>navigateToBookmark(bookmark: SimplePDFBookmark): void</code></td>
-<td style="text-align:left">Navigates to the specified bookmark</td>
-</tr>
-</tbody>
-</table>
-<h2 id="contribute">Contribute</h2>
-<p><a href="CONTRIBUTING.md">See CONTRIBUTING.md</a></p>
-<h2 id="license">License</h2>
-<p><a href="https://tldrlegal.com/license/mit-license">MIT</a> © <a href="https://github.com/viktorhajer">Viktor Hajer</a></p>
-
+					<a href="https://www.npmjs.com/package/simple-pdf-viewer">
+						<img src="https://img.shields.io/npm/dm/simple-pdf-viewer.svg?style=flat" alt="downloads">
+					</a>
+					<a href="https://badge.fury.io/js/simple-pdf-viewer">
+						<img src="https://badge.fury.io/js/simple-pdf-viewer.svg" alt="npm version">
+					</a>
+					<a href="https://david-dm.org/viktorhajer/simple-pdf-viewer" title="dependencies status">
+						<img src="https://david-dm.org/viktorhajer/simple-pdf-viewer/status.svg"/>
+					</a>
+					<a href="https://travis-ci.org/viktorhajer/simple-pdf-viewer" title="test">
+						<img src="https://travis-ci.org/viktorhajer/simple-pdf-viewer.svg?branch=master"/>
+					</a>
+					<a href="https://www.paypal.me/viktorhajer" title="Donate to this project using Paypal">
+						<img src="https://img.shields.io/badge/paypal-donate-green.svg" alt="PayPal donate button" />
+					</a>
+				</p>
+				<p>This is a simple but smart PDF Viewer component for angular/ionic websites. </p>
+				<h3 id="demo-page">Demo page</h3>
+				<p><a href="https://viktorhajer.github.io/simple-pdf-viewer/">https://viktorhajer.github.io/simple-pdf-viewer/</a></p>
+				<h3 id="installation-instructions-and-usage">Installation Instructions and Usage</h3>
+				<p><a href="https://github.com/viktorhajer/simple-pdf-viewer/wiki/How-to-use">https://github.com/viktorhajer/simple-pdf-viewer/wiki/How-to-use</a></p>
+				<h3 id="type-documentation">Type Documentation</h3>
+				<p><a href="https://github.com/viktorhajer/simple-pdf-viewer/wiki/API-Documentation">https://github.com/viktorhajer/simple-pdf-viewer/wiki/API-Documentation</a></p>
+				<h3 id="contribute">Contribute</h3>
+				<p><a href="CONTRIBUTING.md">See CONTRIBUTING.md</a></p>
+				<h3 id="license">License</h3>
+				<p><a href="https://tldrlegal.com/license/mit-license">MIT</a> © <a href="https://github.com/viktorhajer">Viktor Hajer</a></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_src_simplepdfviewer_component_.html">"src/simple<wbr>Pdf<wbr>Viewer.component"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_src_simplepdfviewer_models_.html">"src/simple<wbr>Pdf<wbr>Viewer.models"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_src_simplepdfviewer_module_.html">"src/simple<wbr>Pdf<wbr>Viewer.module"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
 </div>
-        </div>
-        <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-            <nav class="tsd-navigation primary">
-                <ul>
-                                    <li class="globals  ">
-                <a href="globals.html"><em>Globals</em></a>
-            </li>
-                                <li class="label tsd-is-external">
-            <span>Internals</span>
-        </li>
-                                    <li class=" tsd-kind-external-module">
-                <a href="modules/_index_.html">"index"</a>
-            </li>
-                                <li class="label tsd-is-external">
-            <span>Externals</span>
-        </li>
-                                    <li class=" tsd-kind-external-module tsd-is-external">
-                <a href="modules/_src_simplepdfviewer_component_.html">"src/simple<wbr>Pdf<wbr>Viewer.component"</a>
-            </li>
-                                    <li class=" tsd-kind-external-module tsd-is-external">
-                <a href="modules/_src_simplepdfviewer_models_.html">"src/simple<wbr>Pdf<wbr>Viewer.models"</a>
-            </li>
-                                    <li class=" tsd-kind-external-module tsd-is-external">
-                <a href="modules/_src_simplepdfviewer_module_.html">"src/simple<wbr>Pdf<wbr>Viewer.module"</a>
-            </li>
-                </ul>
-            </nav>
-
-            <nav class="tsd-navigation secondary menu-sticky">
-                <ul class="before-current">
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
-
-
 <footer class="with-border-bottom">
-    <div class="container">
-        <h2>Legend</h2>
-        <div class="tsd-legend-group">
-            <ul class="tsd-legend">
-                <li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-                <li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-                <li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-                <li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-                <li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-                <li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-                <li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-            </ul>
-            <ul class="tsd-legend">
-                <li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-                <li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-                <li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-                <li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-            </ul>
-            <ul class="tsd-legend">
-                <li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-                <li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-                <li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-                <li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-                <li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-                <li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-            </ul>
-            <ul class="tsd-legend">
-                <li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-                <li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-                <li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-                <li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-                <li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-                <li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-                <li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
-            </ul>
-            <ul class="tsd-legend">
-                <li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-                <li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-                <li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-                <li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-            </ul>
-            <ul class="tsd-legend">
-                <li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-                <li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-                <li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-            </ul>
-            <ul class="tsd-legend">
-                <li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-                <li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-                <li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-            </ul>
-            <ul class="tsd-legend">
-                <li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-                <li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
-            </ul>
-        </div>
-    </div>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
 </footer>
-
-    <div class="container tsd-generator">
-        <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
-    </div>
-
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
 <script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
-
-
 </body>
 </html>
