@@ -156,6 +156,16 @@ main #tools #subMenus .subMenu p {
   font-weight: bold;
 }
 
+.subMenuItem span.small_text {
+  font-size: 10px;
+  padding: 0;
+  font-weight: normal;
+  color: #aaaaaa;
+  word-wrap: break-word;
+  user-select: text;
+  cursor: text;
+}
+
 main #viewer {
   height: 100%;
   width: 73vw;

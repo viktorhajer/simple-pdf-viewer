@@ -33,16 +33,7 @@
       <!-- Document -->
       <div class="subMenu" [hidden]="!isActiveMenu(1)">
           <div class="subMenuItem" (click)="urlField.click()">Open Document...</div>
-          <div class="subMenuItemGroup">
-            <input  type="number" pattern="-?[0-9]*(\.[0-9]+)?" [(ngModel)]="firstPageBox" placeholder="First page">
-            <div class="clear"></div>
-          </div>
-          <div class="subMenuItemGroup">
-            <input type="input" [(ngModel)]="firstZoomBox" placeholder="Zoom value">
-            <div class="clear"></div>
-          </div>
-          <input style="display: none;" #urlField type="file" (change)="openDocument(urlField.files, firstPageBox, firstZoomBox)" accept="application/pdf">
-          <p>Zoom value can be one of the followings: [integer], 'page', 'width', 'height'</p>
+          <input style="display: none;" #urlField type="file" (change)="openDocument(urlField.files)" accept="application/pdf">
       </div>
       <!-- Table of Content -->
       <div class="subMenu" [hidden]="!isActiveMenu(2)">
@@ -145,7 +136,10 @@
       <!-- Bookmarks -->
       <div class="subMenu" [hidden]="!isActiveMenu(8)">
         <div class="subMenuItem" (click)="createBookmark()">Create Bookmark</div>
-        <div class="subMenuItem" *ngFor="let bookmark of bookmarks; let i = index" (click)="pdfViewer.navigateToBookmark(bookmark)">Bookmark #{{i}}</div>
+        <div class="subMenuItem" *ngFor="let bookmark of bookmarks; let i = index" (click)="pdfViewer.navigateToBookmark(bookmark)">
+          Bookmark #{{i}} <br/>
+          <span class="small_text">{{bookmark.toQueryString()}}</span>
+        </div>
       </div>
     </div>
 

@@ -91,6 +91,7 @@
 <h2 id="install">Install</h2>
 <pre><code>npm <span class="hljs-keyword">install</span> simple-pdf-viewer <span class="hljs-comment">--save</span>
 </code></pre><h2 id="usage">Usage</h2>
+<p><em>(for more detailed example see this project also visit the demo page)</em></p>
 <p>Add <code>SimplePdfViewerModule</code> to your module&#39;s <code>imports</code></p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { BrowserModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/platform-browser'</span>;
 <span class="hljs-keyword">import</span> { NgModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
@@ -112,17 +113,17 @@
 })
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppModule</span> </span>{ }
 </code></pre>
-<p>In your component html</p>
-<pre><code class="lang-html"><span class="hljs-comment">&lt;!-- Example actions --&gt;</span>
+<p>In your component HTML:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"viewer"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Simple PDF Viewer: open the test.pdf at the second page --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">simple-pdf-viewer</span> #<span class="hljs-attr">pdfViewer</span> [<span class="hljs-attr">src</span>]=<span class="hljs-string">"'test.pdf#page=2'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">simple-pdf-viewer</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Example actions --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"pdfViewer.zoomIn()"</span>&gt;</span>Zoom In<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"pdfViewer.nextPage()"</span>&gt;</span>Next Page<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"pdfViewer.turnLeft()"</span>&gt;</span>Turn the document left<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"pdfViewer.search('PDF')"</span>&gt;</span>Search the world 'PDF'<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"viewer"</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- Simple PDF Viewer: open the test.pdf at the second page --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">simple-pdf-viewer</span> #<span class="hljs-attr">pdfViewer</span> [<span class="hljs-attr">src</span>]=<span class="hljs-string">"'test.pdf#page=2'"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">simple-pdf-viewer</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
 
 <span class="hljs-comment">&lt;!-- Information --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Number of pages: {{ pdfViewer.getNumberOfPages() }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -133,6 +134,32 @@
         <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>{{info.key}}: {{info.value}}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+<p>In your component class: </p>
+<pre><code class="lang-js">@Component({...})
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>{
+
+  @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
+  bookmarks: SimplePDFBookmark[] = [];
+
+  <span class="hljs-comment">// how to open PDF document</span>
+  openDocument(<span class="hljs-built_in">document</span>: File) {
+    <span class="hljs-keyword">const</span> fileReader: FileReader = <span class="hljs-keyword">new</span> FileReader();
+    fileReader.onload = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-keyword">this</span>.pdfViewer.openDocument(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(fileReader.result));
+    };
+    fileReader.readAsArrayBuffer(<span class="hljs-built_in">document</span>);
+  }
+
+  <span class="hljs-comment">// how to create bookmark</span>
+  createBookmark() {
+    <span class="hljs-keyword">this</span>.pdfViewer.createBookmark().then(<span class="hljs-function"><span class="hljs-params">bookmark</span> =&gt;</span> {
+      <span class="hljs-keyword">if</span>(bookmark) {
+        <span class="hljs-keyword">this</span>.bookmarks.push(bookmark);
+      }
+    })
+  }
+}
 </code></pre>
 <h2 id="api-documentation">API Documentation</h2>
 <h3 id="input-parameter">Input parameter</h3>
@@ -145,7 +172,7 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>src: string &amp;#124; Uint8Array &amp;#124; PDFSource</code></td>
+<td style="text-align:left"><code>src: string or Uint8Array or PDFSource</code></td>
 <td style="text-align:left">Source of the PDF document (Required)</td>
 </tr>
 </tbody>
@@ -187,8 +214,8 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>openDocument(src: string &amp;#124; Uint8Array &amp;#124; PDFSource, page?: number, zoom?: number &amp;#124; string): void</code></td>
-<td style="text-align:left">Open a PDF document at the specified page (at the first page by default with full page zoom)</td>
+<td style="text-align:left"><code>openDocument(src: string or Uint8Array or PDFSource, startAt?: SimplePDFBookmark): void</code></td>
+<td style="text-align:left">Open a PDF document at the specified bookmark (at the first page by default with 75% zoom)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>isDocumentLoaded(): boolean</code></td>
@@ -317,6 +344,14 @@
 <tr>
 <td style="text-align:left"><code>turnRight(): void</code></td>
 <td style="text-align:left">Turns right the document with 90 degree (clockwise)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>createBookmark(): PDF.PDFPromise&lt;SimplePDFBookmark&gt;</code></td>
+<td style="text-align:left">Creates bookmark object based on the current viewport and page number. The object can be passed to the <em>navigateToBookmark(...)</em> method.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>navigateToBookmark(bookmark: SimplePDFBookmark): void</code></td>
+<td style="text-align:left">Navigates to the specified bookmark</td>
 </tr>
 </tbody>
 </table>

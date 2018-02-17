@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { SimplePdfViewerComponent } from '../../libs/simple-pdf-viewer/src/simplePdfViewer.component';
-import { SimpleProgressData } from '../../libs/simple-pdf-viewer/src/simplePdfViewer.models';
+import { SimpleProgressData, SimplePDFBookmark } from '../../libs/simple-pdf-viewer/src/simplePdfViewer.models';
 
 const OUTLINE_MENU = 2;
 
@@ -11,11 +11,11 @@ const OUTLINE_MENU = 2;
 })
 export class AppComponent {
 
-  src: string = 'assets/example/pdf-test.pdf#page=1#zoom=page';
+  src: string = 'assets/example/pdf-test.pdf';
   menu = 1;
   backButtonVisible = false;
   errorMsg = '';
-  bookmarks: any[] = [];
+  bookmarks: SimplePDFBookmark[] = [];
 
   firstPageBox: any;
   firstZoomBox: any;
@@ -38,13 +38,12 @@ export class AppComponent {
     }
   }
 
-  openDocument(documents: File[], firstPage?:any, firstZoom?: any) {
+  openDocument(documents: File[]) {
     this.errorMsg = '';
     if (documents && documents.length > 0) {
       const fileReader: FileReader = new FileReader();
       fileReader.onload = () => {
-        this.bookmarks = [];
-        this.pdfViewer.openDocument(new Uint8Array(fileReader.result), firstPage, firstZoom);
+        this.pdfViewer.openDocument(new Uint8Array(fileReader.result));
       };
       fileReader.readAsArrayBuffer(documents[0]);
     }
@@ -60,6 +59,8 @@ export class AppComponent {
 
   onLoadComplete()  {
     console.log('Document is loaded');
+    // see the whole document
+    this.pdfViewer.zoomFullPage();
   }
 
   createBookmark() {

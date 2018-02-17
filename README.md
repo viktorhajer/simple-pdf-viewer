@@ -36,6 +36,8 @@ npm install simple-pdf-viewer --save
 
 ## Usage
 
+*(for more detailed example see this project also visit the demo page)*
+
 Add ```SimplePdfViewerModule``` to your module's ```imports```
 
 ```javascript
@@ -60,19 +62,19 @@ import { SimplePdfViewerModule } from 'simple-pdf-viewer';
 export class AppModule { }
 ```
 
-In your component html
+In your component HTML:
 
 ```html
+<section id="viewer">
+    <!-- Simple PDF Viewer: open the test.pdf at the second page -->
+    <simple-pdf-viewer #pdfViewer [src]="'test.pdf#page=2'"></simple-pdf-viewer>
+</section>
+
 <!-- Example actions -->
 <button (click)="pdfViewer.zoomIn()">Zoom In</button>
 <button (click)="pdfViewer.nextPage()">Next Page</button>
 <button (click)="pdfViewer.turnLeft()">Turn the document left</button>
 <button (click)="pdfViewer.search('PDF')">Search the world 'PDF'</button>
-
-<section id="viewer">
-    <!-- Simple PDF Viewer: open the test.pdf at the second page -->
-    <simple-pdf-viewer #pdfViewer [src]="'test.pdf#page=2'"></simple-pdf-viewer>
-</section>
 
 <!-- Information -->
 <p>Number of pages: {{ pdfViewer.getNumberOfPages() }}</p>
@@ -85,13 +87,43 @@ In your component html
 </p>
 ```
 
+In your component class: 
+
+```js
+@Component({...})
+export class AppComponent {
+
+  @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
+  bookmarks: SimplePDFBookmark[] = [];
+
+  // how to open PDF document
+  openDocument(document: File) {
+    const fileReader: FileReader = new FileReader();
+    fileReader.onload = () => {
+      this.pdfViewer.openDocument(new Uint8Array(fileReader.result));
+    };
+    fileReader.readAsArrayBuffer(document);
+  }
+
+  // how to create bookmark
+  createBookmark() {
+    this.pdfViewer.createBookmark().then(bookmark => {
+      if(bookmark) {
+        this.bookmarks.push(bookmark);
+      }
+    })
+  }
+}
+
+```
+
 ## API Documentation
 
 ### Input parameter
 
 | Signature        | Short Description | 
 | :------------- |:-------------| 
-| `src: string &#124; Uint8Array &#124; PDFSource` | Source of the PDF document (Required) |
+| `src: string or Uint8Array or PDFSource` | Source of the PDF document (Required) |
 
 ### Output events
 
@@ -106,7 +138,7 @@ In your component html
 
 | Signature        | Short Description | 
 | :------------- |:-------------| 
-| `openDocument(src: string &#124; Uint8Array &#124; PDFSource, page?: number, zoom?: number &#124; string): void` | Open a PDF document at the specified page (at the first page by default with full page zoom) |
+| `openDocument(src: string or Uint8Array or PDFSource, startAt?: SimplePDFBookmark): void` | Open a PDF document at the specified bookmark (at the first page by default with 75% zoom) |
 | `isDocumentLoaded(): boolean` | Returns whether the PDF document is loaded properly |
 | `getDocumentInformation(): SimpleDocumentInfo[]` | Returns the basic information about the PDF document |
 | `getZoom(): number` | Returns the value of the viewport scale |
@@ -139,6 +171,8 @@ In your component html
 | `resetRotation(): void` | Sets the rotation to the default 0 degree |
 | `turnLeft(): void` | Turns left the document with 90 degree (counterclockwise) |
 | `turnRight(): void` | Turns right the document with 90 degree (clockwise) |
+| `createBookmark(): PDF.PDFPromise<SimplePDFBookmark>` | Creates bookmark object based on the current viewport and page number. The object can be passed to the *navigateToBookmark(...)* method.  |
+| `navigateToBookmark(bookmark: SimplePDFBookmark): void` | Navigates to the specified bookmark |
 
 ## Contribute
 [See CONTRIBUTING.md](CONTRIBUTING.md)

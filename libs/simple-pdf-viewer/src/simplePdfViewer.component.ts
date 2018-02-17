@@ -280,11 +280,6 @@ if (typeof window !== 'undefined') {
 })
 export class SimplePdfViewerComponent implements OnInit {
 
-  public static readonly ZOOM_PAGE: string = 'page';
-  public static readonly ZOOM_PAGE_WIDTH: string = 'width';
-  public static readonly ZOOM_PAGE_HEIGHT: string = 'height';
-  private static readonly ZOOM_PERCENT: string = 'percent';
-
   private static readonly CSS_UNITS: number = 96.0 / 72.0;
   private static readonly PAGE_RESIZE_BORDER_HEIGHT: number = 15;
   private static readonly PAGE_RESIZE_BORDER_WIDTH: number = 15;
@@ -305,14 +300,13 @@ export class SimplePdfViewerComponent implements OnInit {
   @Output('onProgress') onProgress = new EventEmitter<SimpleProgressData>();
   @Output('onSearchStateChange') onSearchStateChange = new EventEmitter<SimpleSearchState>();
 
-  private startPage: number = 1;
+  private startAt: SimplePDFBookmark = SimplePDFBookmark.EMPTY_BOOKMARK;
   private loaded: boolean = false;
   private currentPage: number = 1;
   private numberOfPages: number = 1;
   private outline: SimpleOutlineNode[] = [];
   private information: SimpleDocumentInfo[];
   private zoom: number = 1.0;
-  private zoom_open: string = SimplePdfViewerComponent.ZOOM_PAGE;
   private rotation: number = 0;
   private disableTextLayer: boolean = false;
 
@@ -337,26 +331,19 @@ export class SimplePdfViewerComponent implements OnInit {
         PDFJS.workerSrc = workerUrl;
       }
       this.initPDFJS();
-      this.resetParameters();
-      this.setAndParseSrc(this.src);
-      this.loadFile();
+      this.openDocument(this.src);
     }
   }
 
   /**
    * Open a PDF document at the specified page (at the first page by default)
    * @param src Source of the PDF document
-   * @param page The specified page where should start, default: 1
-   * @param zoom The specified zoom value, default: full page
+   * @param startAt The bookmark where should start, default: at the first page
    */
-  public openDocument(src: string | Uint8Array | PDF.PDFSource, page: number = 1, zoom: number | string = 'page'): void {
+  public openDocument(src: string | Uint8Array | PDF.PDFSource, startAt: SimplePDFBookmark = SimplePDFBookmark.EMPTY_BOOKMARK): void {
     this.resetParameters();
-    this.parsePageParameter(`page=${page}`);
-    this.parseZoomParameter(`zoom=${zoom}`);
+    this.startAt = startAt;
     this.setAndParseSrc(src);
-    if (this.pdfFindController) {
-      this.pdfFindController.reset();
-    }
     this.loadFile();
   }
 
@@ -390,10 +377,7 @@ export class SimplePdfViewerComponent implements OnInit {
 
   private pagesinitEventListener() {
     this.pdfViewer.currentScaleValue = SimplePdfViewerComponent.PDF_VIEWER_DEFAULT_SCALE;
-    this.initZoom();
-    if (this.startPage !== 1) {
-      this.navigateToPage(this.startPage);
-    }
+    this.navigateToBookmark(this.startAt);
     this.onLoadComplete.emit();
   }
 
@@ -408,34 +392,10 @@ export class SimplePdfViewerComponent implements OnInit {
   private setAndParseSrc(src: string | Uint8Array | PDF.PDFSource) {
     this.src = src;
     if (this.src && typeof this.src === 'string') {
-      var res = this.src.split("#");
-      if (res.length > 1) {
-        this.src = res[0];
-        res.forEach(part => {
-          this.parsePageParameter(part);
-          this.parseZoomParameter(part);
-        });
-      }
-    }
-  }
-
-  private parsePageParameter(part: string) {
-    const parameter = part.split("=");
-    if (parameter.length > 1 && part.indexOf('page') !== -1) {
-      const pageParameterValue = Math.abs(parseInt(`${parameter[1]}`, 10));
-      this.startPage = Number.isNaN(pageParameterValue) ? 1 : pageParameterValue;
-    }
-  }
-
-  private parseZoomParameter(part: string) {
-    const parameter = part.split("=");
-    if (parameter.length > 1 && part.indexOf('zoom') !== -1) {
-      const parameterValue = parameter[1];
-      if (!Number.isNaN(parseInt(`${parameterValue}`, 10))) {
-        this.zoom = Math.abs(parseInt(`${parameterValue}`, 10)/100);
-        this.zoom_open = SimplePdfViewerComponent.ZOOM_PERCENT;
-      } else {
-        this.zoom_open = parameterValue;
+      const parts = this.src.split(SimplePDFBookmark.PARAMETER_SEPARATOR);
+      if (parts.length > 1) {
+        this.startAt = SimplePDFBookmark.buildSimplePDFBookmark(this.src);
+        this.src = parts[0];
       }
     }
   }
@@ -486,6 +446,10 @@ export class SimplePdfViewerComponent implements OnInit {
     this.currentPage = 1;
     this.zoom = 1;
     this.numberOfPages = 1;
+    this.startAt = SimplePDFBookmark.EMPTY_BOOKMARK;
+    if (this.pdfFindController) {
+      this.pdfFindController.reset();
+    }
   }
 
   private mapOutline(nodes: PDF.PDFTreeNode[]): SimpleOutlineNode[] {
@@ -522,8 +486,7 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   public zoomIn(): void {
     if (this.isDocumentLoaded()) {
-      this.zoom += SimplePdfViewerComponent.ZOOM_UNIT;
-      this.setZoom(this.zoom);
+      this.setZoom(this.zoom + SimplePdfViewerComponent.ZOOM_UNIT);
     }
   }
 
@@ -532,8 +495,7 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   public zoomOut(): void {
     if (this.isDocumentLoaded()) {
-      this.zoom -= SimplePdfViewerComponent.ZOOM_UNIT;
-      this.setZoom(this.zoom);
+      this.setZoom(this.zoom - SimplePdfViewerComponent.ZOOM_UNIT);
     }
   }
 
@@ -542,8 +504,7 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   public zoomReset(): void {
     if (this.isDocumentLoaded()) {
-      this.zoom = 1.0;
-      this.setZoom(this.zoom);
+      this.setZoom(1.0);
     }
   }
 
@@ -622,24 +583,8 @@ export class SimplePdfViewerComponent implements OnInit {
     }
   }
 
-  private initZoom() {
-    switch (this.zoom_open) {
-      case SimplePdfViewerComponent.ZOOM_PERCENT: 
-        this.setZoom(this.zoom);
-        break;
-      case SimplePdfViewerComponent.ZOOM_PAGE_WIDTH: 
-        this.zoomPageWidth();
-        break;
-      case SimplePdfViewerComponent.ZOOM_PAGE_HEIGHT: 
-        this.zoomPageHeight();
-        break;
-      default: 
-        this.zoomFullPage();
-    }
-  }
-
   private normalizeScale(scale): number {
-    let normalizedScale = scale;
+    let normalizedScale = Math.round(scale * 1000)/1000;
     if (scale > SimplePdfViewerComponent.MAX_ZOOM) {
       normalizedScale = SimplePdfViewerComponent.MAX_ZOOM;
     } else if (scale < SimplePdfViewerComponent.MIN_ZOOM) {
@@ -918,12 +863,14 @@ export class SimplePdfViewerComponent implements OnInit {
         x = y;
         y = tmp;
       }
+      x = Math.round(x);
+      y = Math.round(y);
       return new SimplePDFBookmark(this.currentPage, this.zoom, this.rotation, x, y);
     });
   }
 
   /**
-   * Navigates to the specified bookmark place
+   * Navigates to the specified bookmark
    */
   public navigateToBookmark(bookmark: SimplePDFBookmark) {
     if(this.isDocumentLoaded() && !!bookmark) {
