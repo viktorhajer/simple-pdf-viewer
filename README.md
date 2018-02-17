@@ -23,6 +23,18 @@ This is a simple but smart PDF Viewer component for angular/ionic websites.
 ### Demo page
 [https://viktorhajer.github.io/simple-pdf-viewer/](https://viktorhajer.github.io/simple-pdf-viewer/)
 
+### Features
+
+* Open: the src can be one of the following: file URL, Uint8Array or PDFSource
+* Display: PDF conatiner is displayed
+* Information: number of pages, viewport information (zoom, rotation...), meta information (author, subject, creator...)
+* Navigation: navigate to the first page, the last page, next page, previous page and any of the pages
+* Zooming: zoon in, zoom out, full page, page width, page height, set any zoom as double or percent
+* Rotation: turn the document left or right (+/- 90 degree)
+* Outline / Table of Content: provides the outline if exists and possiblity to navigate to the outline item
+* Searching: case sensitive/insensitve text search (phraseSearch can be turn on/off), go to next/prev match, number of matches
+* Bookmarks: create bookmark based on the actual viewport and that can be used for navigation
+
 ### Installation Instructions and Usage
 [https://github.com/viktorhajer/simple-pdf-viewer/wiki/How-to-use](https://github.com/viktorhajer/simple-pdf-viewer/wiki/How-to-use)
 
