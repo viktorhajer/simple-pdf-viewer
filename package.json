@@ -10,13 +10,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "lint": "ng lint",
     "docs": "typedoc public_api.ts",
     "deploy": "ng build --prod --output-path docs --base-href \"https://viktorhajer.github.io/simple-pdf-viewer/\"",
     "postdeploy": "npm run docs",
-    "packagr": "ng-packagr -p ng-package.json",
-    "prerelease": "npm run packagr",
-    "release": "np"
+    "package": "ng-packagr -p ng-package.json",
+    "tag_release": "git push --follow-tags",
+    "release": "npm publish dist"
   },
   "bugs": {
     "url": "https://github.com/viktorhajer/simple-pdf-viewer/issues"
