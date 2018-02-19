@@ -33,7 +33,8 @@ export class SimpleProgressData {
  * Representation of the settings of the search
  */
 export class SimpleSearchOptions {
-  constructor(public caseSensitive: boolean, public highlightAll: boolean, public phraseSearch: boolean){};
+  public static readonly DEFAULT_OPTIONS = new SimpleSearchOptions();
+  constructor(public caseSensitive: boolean = false, public highlightAll: boolean = true, public phraseSearch: boolean = true){};
 }
 
 /**
