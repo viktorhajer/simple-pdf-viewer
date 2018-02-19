@@ -33,7 +33,7 @@ This is a simple but smart PDF Viewer component for angular/ionic websites.
 * Zooming: zoon in, zoom out, full page, page width, page height, set any zoom as double or percent
 * Rotation: turn the document left or right (+/- 90 degree)
 * Outline / Table of Content: provides the outline if exists and possiblity to navigate to the outline item
-* Searching: case sensitive/insensitve text search (phraseSearch can be turn on/off), go to next/prev match, number of matches
+* Searching: case sensitive/insensitve text search (```phraseSearch``` and ```highlightAll``` can be turn on/off), go to next/prev match, number of matches
 * Bookmarks: create bookmark based on the actual viewport and that can be used for navigation
 
 ### Installation Instructions and Usage
