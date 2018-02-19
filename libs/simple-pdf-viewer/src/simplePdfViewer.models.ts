@@ -30,6 +30,14 @@ export class SimpleProgressData {
 }
 
 /**
+ * Representation of the settings of the search
+ */
+export class SimpleSearchOptions {
+  public static readonly DEFAULT_OPTIONS = new SimpleSearchOptions();
+  constructor(public caseSensitive: boolean = false, public highlightAll: boolean = true, public phraseSearch: boolean = true){};
+}
+
+/**
  * Representation of the PDF bookmark
  */
 export class SimplePDFBookmark {

@@ -2,7 +2,7 @@
  * Created by Viktor Hajer on 02/08/2018.
  */
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData, SimplePDFBookmark } from './simplePdfViewer.models';
+import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData, SimpleSearchOptions, SimplePDFBookmark } from './simplePdfViewer.models';
 
 declare var require: any;
 
@@ -287,7 +287,7 @@ export class SimplePdfViewerComponent implements OnInit {
   private static readonly MAX_ZOOM = 5; // max. zoom 500%
   private static readonly MIN_ZOOM = 0.05; // min. zoom 5%
   private static readonly PDF_FINDER_FIND_COMMAND = 'find';
-  private static readonly PDF_FINDER_AGAIN_COMMAND = 'again';
+  private static readonly PDF_FINDER_AGAIN_COMMAND = 'findagain';
   private static readonly PDF_VIEWER_DEFAULT_SCALE = 'page-fit';
 
   /**
@@ -318,8 +318,7 @@ export class SimplePdfViewerComponent implements OnInit {
   private searching: boolean = false;
   private lastSearchText: string = '';
   private searchPrevious: boolean = false;
-  private searchCaseSensitive: boolean = false;
-  private searchPhraseSearch: boolean = true;
+  private searchOptions: SimpleSearchOptions = SimpleSearchOptions.DEFAULT_OPTIONS;
 
   constructor(private element: ElementRef) {
   }
@@ -616,10 +615,9 @@ export class SimplePdfViewerComponent implements OnInit {
   /**
    * Starts case sensitive/insensitive text search and navigate to the first match (from the actual page)
    * @param text searched text
-   * @param caseSensitive set true to use case sensitive searching (false by default)
-   * @param phraseSearch set true to use full phrase search (that's the default)
+   * @param searchOptions set true to use case sensitive searching (false by default)
    */
-  public search(text: string, caseSensitive: boolean = false, phraseSearch: boolean = true): void {
+  public search(text: string, searchOptions: SimpleSearchOptions = SimpleSearchOptions.DEFAULT_OPTIONS): void {
     if (this.isDocumentLoaded()) {
       const searchText = text ? text.trim() : '';
       if (!searchText) {
@@ -627,15 +625,14 @@ export class SimplePdfViewerComponent implements OnInit {
       }
       this.lastSearchText = text;
       this.searchPrevious = false;
-      this.searchCaseSensitive = caseSensitive;
-      this.searchPhraseSearch = phraseSearch;
+      this.searchOptions = searchOptions;
       this.pdfFindController.onUpdateResultsCount = this.onUpdateResultsCount.bind(this);
       this.pdfFindController.onUpdateState = this.onUpdateState.bind(this);
       this.pdfFindController.executeCommand(SimplePdfViewerComponent.PDF_FINDER_FIND_COMMAND, {
-        caseSensitive: this.searchCaseSensitive,
+        caseSensitive: this.searchOptions.caseSensitive,
         findPrevious: false,
-        highlightAll: true,
-        phraseSearch: this.searchPhraseSearch,
+        highlightAll: this.searchOptions.highlightAll,
+        phraseSearch: this.searchOptions.phraseSearch,
         query: searchText
       });
     }
@@ -670,10 +667,10 @@ export class SimplePdfViewerComponent implements OnInit {
   private searchAgain(): void {
     if (this.isDocumentLoaded()) {
       this.pdfFindController.executeCommand(SimplePdfViewerComponent.PDF_FINDER_AGAIN_COMMAND, {
-        caseSensitive: this.searchCaseSensitive,
+        caseSensitive: this.searchOptions.caseSensitive,
         findPrevious: this.searchPrevious,
-        highlightAll: true,
-        phraseSearch: this.searchPhraseSearch,
+        highlightAll: this.searchOptions.highlightAll,
+        phraseSearch: this.searchOptions.phraseSearch,
         query: this.lastSearchText
       });
     }
