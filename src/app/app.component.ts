@@ -41,11 +41,7 @@ export class AppComponent {
   openDocument(documents: File[]) {
     this.errorMsg = '';
     if (documents && documents.length > 0) {
-      const fileReader: FileReader = new FileReader();
-      fileReader.onload = () => {
-        this.pdfViewer.openDocument(new Uint8Array(fileReader.result));
-      };
-      fileReader.readAsArrayBuffer(documents[0]);
+      this.pdfViewer.openFile(documents[0], new SimplePDFBookmark(2));
     }
   }
 

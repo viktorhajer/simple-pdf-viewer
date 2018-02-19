@@ -348,6 +348,26 @@ export class SimplePdfViewerComponent implements OnInit {
   }
 
   /**
+   * Open a PDF document at the specified page (at the first page by default)
+   * @param file The File source of the PDF document
+   * @param startAt The bookmark where should start, default: at the first page
+   */
+  public openFile(file: File, startAt: SimplePDFBookmark = SimplePDFBookmark.EMPTY_BOOKMARK) {
+    try {
+      const fileReader: FileReader = new FileReader();
+      fileReader.onload = () => {
+      this.openDocument(new Uint8Array(fileReader.result), startAt);
+      };
+      fileReader.onerror = (error) => {
+      this.onError.emit(error);
+      };
+      fileReader.readAsArrayBuffer(file);
+    } catch (error) {
+      this.onError.emit(error);
+    }
+  }
+
+  /**
    * Returns whether the PDF document is loaded properly
    */
   public isDocumentLoaded(): boolean {

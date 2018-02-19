@@ -26,6 +26,7 @@ This is a simple but smart PDF Viewer component for angular/ionic websites.
 ### Features
 
 * Open: the src can be one of the following: file URL, Uint8Array or PDFSource
+* Separated method to open javascript File object
 * Display: PDF conatiner is displayed
 * Information: number of pages, viewport information (zoom, rotation...), meta information (author, subject, creator...)
 * Navigation: navigate to the first page, the last page, next page, previous page and any of the pages
