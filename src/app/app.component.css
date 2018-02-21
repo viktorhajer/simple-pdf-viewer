@@ -124,7 +124,7 @@ main #tools #subMenus input {
 }
 main #tools #subMenus input {
   cursor: text;
-  max-width: 120px;
+  max-width: 150px;
 }
 main #tools #subMenus .subMenuItem:hover {
   background: #346680;
@@ -138,6 +138,17 @@ main #tools #subMenus .subMenu p {
   width: fit-content;
   max-width: 200px;
   padding: 8px 12px;
+  line-height: 22px;
+}
+
+main #tools #subMenus .subMenu p.normal {
+  color: rgba(255, 255, 255, 0.96);
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  width: fit-content;
+  max-width: 200px;
+  padding: 2px 12px;
   line-height: 22px;
 }
 

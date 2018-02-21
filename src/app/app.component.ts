@@ -17,6 +17,7 @@ export class AppComponent {
   errorMsg = '';
   bookmarks: SimplePDFBookmark[] = [];
 
+  urlBox: any;
   firstPageBox: any;
   firstZoomBox: any;
   pageBox: any;
@@ -41,7 +42,14 @@ export class AppComponent {
   openDocument(documents: File[]) {
     this.errorMsg = '';
     if (documents && documents.length > 0) {
-      this.pdfViewer.openFile(documents[0], new SimplePDFBookmark(2));
+      this.pdfViewer.openFile(documents[0]);
+    }
+  }
+
+  openUrl(url: string) {
+    this.errorMsg = '';
+    if (url && url.length > 0) {
+      this.pdfViewer.openUrl(url);
     }
   }
 

@@ -34,6 +34,9 @@
       <div class="subMenu" [hidden]="!isActiveMenu(1)">
           <div class="subMenuItem" (click)="urlField.click()">Open Document...</div>
           <input style="display: none;" #urlField type="file" (change)="openDocument(urlField.files)" accept="application/pdf">
+          <p class="normal">or</p>
+          <input type="input" [(ngModel)]="urlBox" (keyup.enter)="openUrl(urlBox)" placeholder="Type a URL...">
+          <div class="subMenuItem" (click)="openUrl(urlBox)">Open URL</div>
       </div>
       <!-- Table of Content -->
       <div class="subMenu" [hidden]="!isActiveMenu(2)">

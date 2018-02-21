@@ -1,7 +1,8 @@
 /**
  * Created by Viktor Hajer on 02/08/2018.
  */
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData, SimpleSearchOptions, SimplePDFBookmark } from './simplePdfViewer.models';
 
 declare var require: any;
@@ -320,7 +321,7 @@ export class SimplePdfViewerComponent implements OnInit {
   private searchPrevious: boolean = false;
   private searchOptions: SimpleSearchOptions = SimpleSearchOptions.DEFAULT_OPTIONS;
 
-  constructor(private element: ElementRef) {
+  constructor(private element: ElementRef, private http: HttpClient) {
   }
 
   public ngOnInit() {
@@ -364,6 +365,18 @@ export class SimplePdfViewerComponent implements OnInit {
     } catch (error) {
       this.onError.emit(error);
     }
+  }
+
+  /**
+   * Open a PDF document at the specified page (at the first page by default)
+   * @param url The url of the PDF document
+   * @param startAt The bookmark where should start, default: at the first page
+   */
+  public openUrl(url: string, startAt: SimplePDFBookmark = SimplePDFBookmark.EMPTY_BOOKMARK) {
+    this.http.get(url, { responseType: 'arraybuffer' })
+      .subscribe((file: ArrayBuffer) => {
+        this.openDocument(new Uint8Array(file), startAt);
+      });
   }
 
   /**

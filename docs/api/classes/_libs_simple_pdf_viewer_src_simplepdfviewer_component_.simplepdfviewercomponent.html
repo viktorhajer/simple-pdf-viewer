@@ -136,6 +136,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#ngoninit" class="tsd-kind-icon">ng<wbr>OnInit</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#opendocument" class="tsd-kind-icon">open<wbr>Document</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#openfile" class="tsd-kind-icon">open<wbr>File</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#openurl" class="tsd-kind-icon">open<wbr>Url</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#prevpage" class="tsd-kind-icon">prev<wbr>Page</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#previousmatch" class="tsd-kind-icon">previous<wbr>Match</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#resetrotation" class="tsd-kind-icon">reset<wbr>Rotation</a></li>
@@ -161,19 +162,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Simple<wbr>Pdf<wbr>Viewer<wbr>Component<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementRef</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html" class="tsd-signature-type">SimplePdfViewerComponent</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Simple<wbr>Pdf<wbr>Viewer<wbr>Component<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementRef</span>, http<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HttpClient</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html" class="tsd-signature-type">SimplePdfViewerComponent</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L321">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:321</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L322">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:322</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <span class="tsd-signature-type">ElementRef</span></h5>
+								</li>
+								<li>
+									<h5>http: <span class="tsd-signature-type">HttpClient</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html" class="tsd-signature-type">SimplePdfViewerComponent</a></h4>
@@ -189,7 +193,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new EventEmitter&lt;any&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L299">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:299</a></li>
+							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L300">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:300</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -199,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Load<wbr>Complete<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new EventEmitter&lt;void&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L298">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:298</a></li>
+							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L299">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:299</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -209,7 +213,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Progress<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_models_.simpleprogressdata.html" class="tsd-signature-type">SimpleProgressData</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new EventEmitter&lt;SimpleProgressData&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L300">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:300</a></li>
+							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L301">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:301</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -219,7 +223,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Search<wbr>State<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><a href="../enums/_libs_simple_pdf_viewer_src_simplepdfviewer_models_.simplesearchstate.html" class="tsd-signature-type">SimpleSearchState</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new EventEmitter&lt;SimpleSearchState&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L301">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:301</a></li>
+							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L302">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:302</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -229,7 +233,7 @@
 					<div class="tsd-signature tsd-kind-icon">src<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PDFSource</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L296">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:296</a></li>
+							<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L297">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:297</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -251,7 +255,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L860">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:860</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L873">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:873</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -274,7 +278,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L758">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:758</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L771">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:771</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -296,7 +300,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L719">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:719</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L732">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:732</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -318,7 +322,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L485">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:485</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L498">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:498</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -340,7 +344,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L682">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:682</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L695">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:695</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -362,7 +366,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L726">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:726</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L739">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:739</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -384,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L733">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:733</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L746">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:746</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -406,7 +410,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L840">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:840</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L853">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:853</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -428,7 +432,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L492">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:492</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L505">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:505</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -450,7 +454,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L499">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:499</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L512">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:512</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -472,7 +476,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L692">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:692</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L705">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:705</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -494,7 +498,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L740">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:740</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L753">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:753</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -516,7 +520,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L372">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:372</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L385">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:385</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -538,7 +542,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L699">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:699</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L712">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:712</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -560,7 +564,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L768">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:768</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L781">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:781</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -582,7 +586,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L892">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:892</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L905">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:905</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -610,7 +614,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L748">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:748</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L761">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:761</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -641,7 +645,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L800">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:800</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L813">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:813</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -677,7 +681,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L644">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:644</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L657">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:657</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -699,7 +703,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L778">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:778</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L791">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:791</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -721,7 +725,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L326">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:326</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L327">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:327</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -738,7 +742,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L342">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:342</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L343">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:343</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -775,7 +779,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L354">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:354</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L355">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:355</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -803,6 +807,43 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="openurl" class="tsd-anchor"></a>
+					<h3>open<wbr>Url</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">open<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, startAt<span class="tsd-signature-symbol">?: </span><a href="_libs_simple_pdf_viewer_src_simplepdfviewer_models_.simplepdfbookmark.html" class="tsd-signature-type">SimplePDFBookmark</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L375">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:375</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Open a PDF document at the specified page (at the first page by default)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The url of the PDF document</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> startAt: <a href="_libs_simple_pdf_viewer_src_simplepdfviewer_models_.simplepdfbookmark.html" class="tsd-signature-type">SimplePDFBookmark</a><span class="tsd-signature-symbol"> =&nbsp;SimplePDFBookmark.EMPTY_BOOKMARK</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The bookmark where should start, default: at the first page</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
 					<a name="prevpage" class="tsd-anchor"></a>
 					<h3>prev<wbr>Page</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
@@ -812,7 +853,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L788">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:788</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L801">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:801</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -834,7 +875,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L651">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:651</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L664">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:664</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -856,7 +897,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L819">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:819</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L832">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:832</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -878,7 +919,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L620">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:620</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L633">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:633</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -915,7 +956,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L587">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:587</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L600">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:600</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -946,7 +987,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L599">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:599</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L612">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:612</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -977,7 +1018,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L826">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:826</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L839">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:839</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -999,7 +1040,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L833">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:833</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L846">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:846</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1021,7 +1062,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L533">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:533</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L546">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:546</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1043,7 +1084,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L506">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:506</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L519">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:519</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1065,7 +1106,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L515">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:515</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L528">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:528</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1087,7 +1128,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L557">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:557</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L570">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:570</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1109,7 +1150,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L545">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:545</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L558">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:558</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1131,7 +1172,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/442d09d/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L524">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:524</a></li>
+									<li>Defined in <a href="https://github.com/viktorhajer/simple-pdf-viewer/blob/7d8763c/libs/simple-pdf-viewer/src/simplePdfViewer.component.ts#L537">libs/simple-pdf-viewer/src/simplePdfViewer.component.ts:537</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1267,6 +1308,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#openfile" class="tsd-kind-icon">open<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#openurl" class="tsd-kind-icon">open<wbr>Url</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="_libs_simple_pdf_viewer_src_simplepdfviewer_component_.simplepdfviewercomponent.html#prevpage" class="tsd-kind-icon">prev<wbr>Page</a>
