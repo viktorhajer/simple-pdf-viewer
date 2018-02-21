@@ -356,14 +356,16 @@ export class SimplePdfViewerComponent implements OnInit {
     try {
       const fileReader: FileReader = new FileReader();
       fileReader.onload = () => {
-      this.openDocument(new Uint8Array(fileReader.result), startAt);
+        this.openDocument(new Uint8Array(fileReader.result), startAt);
       };
       fileReader.onerror = (error) => {
-      this.onError.emit(error);
+        this.onError.emit(error);
+        this.loaded = false;
       };
       fileReader.readAsArrayBuffer(file);
     } catch (error) {
       this.onError.emit(error);
+      this.loaded = false;
     }
   }
 
@@ -376,6 +378,9 @@ export class SimplePdfViewerComponent implements OnInit {
     this.http.get(url, { responseType: 'arraybuffer' })
       .subscribe((file: ArrayBuffer) => {
         this.openDocument(new Uint8Array(file), startAt);
+      }, error => {
+        this.onError.emit(error);
+        this.loaded = false;
       });
   }
 
