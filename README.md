@@ -35,6 +35,7 @@ This is a simple but smart PDF Viewer component for angular/ionic websites.
 * Outline / Table of Content: provides the outline if exists and possiblity to navigate to the outline item
 * Searching: case sensitive/insensitve text search (```phraseSearch``` and ```highlightAll``` can be turn on/off), go to next/prev match, number of matches
 * Bookmarks: create bookmark based on the actual viewport and that can be used for navigation
+* Snapshot: create snapshot based on the actual viewport
 
 ### Installation Instructions and Usage
 [https://github.com/viktorhajer/simple-pdf-viewer/wiki/How-to-use](https://github.com/viktorhajer/simple-pdf-viewer/wiki/How-to-use)

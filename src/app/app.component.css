@@ -256,3 +256,13 @@ footer p span.small {
 .outline a:hover {
   color: #346680;
 }
+.snapshotsContainer {
+  margin: 10px 0 0 0;
+  overflow-y: auto;
+  height: 300px;
+}
+
+.snapshot {
+  width: 30%;
+  margin: 2px;
+}

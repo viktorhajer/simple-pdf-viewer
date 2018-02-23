@@ -16,6 +16,7 @@ export class AppComponent {
   backButtonVisible = false;
   errorMsg = '';
   bookmarks: SimplePDFBookmark[] = [];
+  snapshots: string[] = [];
 
   urlBox: any;
   firstPageBox: any;
@@ -75,4 +76,16 @@ export class AppComponent {
     })
   }
 
+  createSnapshot() {
+    this.pdfViewer.createSnapshot().then(snapshot => {
+      if(snapshot) {
+        this.snapshots.push(URL.createObjectURL(snapshot));
+      }
+    })
+  }
+
+  openImage(url: string) {
+    window.open(url);
+    return true;
+  }
 }

@@ -4,8 +4,10 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData, SimpleSearchOptions, SimplePDFBookmark } from './simplePdfViewer.models';
+import { PDFPromise } from 'pdfjs-dist';
 
 declare var require: any;
+declare var unescape: any;
 
 enum ScalePriority {
   FULL,
@@ -290,6 +292,7 @@ export class SimplePdfViewerComponent implements OnInit {
   private static readonly PDF_FINDER_FIND_COMMAND = 'find';
   private static readonly PDF_FINDER_AGAIN_COMMAND = 'findagain';
   private static readonly PDF_VIEWER_DEFAULT_SCALE = 'page-fit';
+  private static readonly SNAPSHOT_TPYE = 'image/png';
 
   /**
    * Source of the PDF document (Required)
@@ -875,12 +878,13 @@ export class SimplePdfViewerComponent implements OnInit {
    * Creates bookmark object based on the current viewport and page number. 
    * The object can be passed to the #navigateToBookmark method. 
    */
-  public createBookmark(): PDF.PDFPromise<SimplePDFBookmark> {
+  public createBookmark(): Promise<SimplePDFBookmark> {
     if(!this.isDocumentLoaded()) {
-      return;
+      return Promise.reject('Document is not loaded');
     }
-    return this.pdf.getPage(this.currentPage).then((p: PDF.PDFPageProxy) => {
-      const viewport = p.getViewport(1, this.rotation);
+    const pagePromise = <Promise<PDF.PDFPageProxy>><any>this.pdf.getPage(this.currentPage);
+    return pagePromise.then((page: PDF.PDFPageProxy) => {
+      const viewport = page.getViewport(1, this.rotation);
       const container = this.getContainer();
       let x = container.scrollLeft / container.scrollWidth * viewport.width;
       let y = (container.scrollHeight - container.scrollTop) / container.scrollHeight * viewport.height;
@@ -912,5 +916,44 @@ export class SimplePdfViewerComponent implements OnInit {
       this.rotate(bookmark.rotation);
       this.pdfViewer.scrollPageIntoView(bookmark.toDestination());
     }
+  }
+
+  /**
+   * Create a createSnapshot PNG file based on the actual rotation and zoom
+   */
+  public createSnapshot(): Promise<File> {
+    if (this.isDocumentLoaded()) {
+      const pagePromise = <Promise<PDF.PDFPageProxy>><any>this.pdf.getPage(this.currentPage);
+      return pagePromise.then((page: PDF.PDFPageProxy) => {
+        const viewport = page.getViewport(this.zoom, this.rotation);
+        const canvas = <HTMLCanvasElement><any>document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        const task = <Promise<any>><any>page.render({canvasContext: context, viewport: viewport});
+        return task.then(() =>
+          this.dataURItoFile(canvas.toDataURL(SimplePdfViewerComponent.SNAPSHOT_TPYE)));
+      });
+    }
+    return Promise.reject('Document is not loaded');
+  }
+    
+  private dataURItoFile(dataURI: string): File {
+    let byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+      byteString = atob(dataURI.split(',')[1]);
+    } else {
+      byteString = unescape(dataURI.split(',')[1]);
+    }
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ia = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ia], { type: mimeString });
+    const b: any = blob;
+    b.lastModifiedDate = new Date();
+    b.name = 'screen.png';
+    return <File>blob;
   }
 }

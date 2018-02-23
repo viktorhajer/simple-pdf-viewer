@@ -30,3 +30,24 @@ body {
 textarea:focus, input:focus{
   outline: none;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+  border: 0.5px solid #aaa;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6b98b3;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #999; 
+}

@@ -21,6 +21,7 @@
           <div class="mainMenuItem" [class.active]="isActiveMenu(5)" (click)="setActiveMenu(5)">Rotation</div>
           <div class="mainMenuItem" [class.active]="isActiveMenu(6)" (click)="setActiveMenu(6)">Searching</div>
           <div class="mainMenuItem" [class.active]="isActiveMenu(8)" (click)="setActiveMenu(8)">Bookmarks</div>
+          <div class="mainMenuItem" [class.active]="isActiveMenu(9)" (click)="setActiveMenu(9)">Snapshots</div>
         </div>
       </div>
       <div *ngIf="backButtonVisible">
@@ -142,6 +143,13 @@
         <div class="subMenuItem" *ngFor="let bookmark of bookmarks; let i = index" (click)="pdfViewer.navigateToBookmark(bookmark)">
           Bookmark #{{i}} <br/>
           <span class="small_text">{{bookmark.toQueryString()}}</span>
+        </div>
+      </div>
+      <!-- Snapshots -->
+      <div class="subMenu" [hidden]="!isActiveMenu(9)">
+        <div class="subMenuItem" (click)="createSnapshot()">Create Snapshot</div>
+        <div class="snapshotsContainer">
+          <img *ngFor="let snapshotImg of snapshots" class="snapshot" [src]="snapshotImg | safeUrl" (click)="openImage(snapshotImg)"/>
         </div>
       </div>
     </div>
