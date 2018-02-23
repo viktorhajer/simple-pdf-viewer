@@ -45,7 +45,7 @@ This is a simple but smart PDF Viewer component for angular/ionic websites.
 
 ### Screenshot
 
-<img src="/src/assets/screen_1.png" alt="Screenshot" style="width: 100px;"/>
+<img src="/src/assets/screen_1.png" alt="Screenshot" style="width: 450px;"/>
 
 ### Contribute
 [See CONTRIBUTING.md](CONTRIBUTING.md)
