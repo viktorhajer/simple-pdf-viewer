@@ -265,4 +265,10 @@ footer p span.small {
 .snapshot {
   width: 30%;
   margin: 2px;
+  cursor: pointer;
+}
+
+.snapshotBig {
+  max-width: calc(100vw - 100px);
+  max-height: calc(100vh - 100px);
 }

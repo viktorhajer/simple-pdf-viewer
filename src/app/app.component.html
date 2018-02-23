@@ -147,7 +147,7 @@
       </div>
       <!-- Snapshots -->
       <div class="subMenu" [hidden]="!isActiveMenu(9)">
-        <div class="subMenuItem" (click)="createSnapshot()">Create Snapshot</div>
+        <div class="subMenuItem" (click)="getPageSnapshot()">Create Snapshot</div>
         <div class="snapshotsContainer">
           <img *ngFor="let snapshotImg of snapshots" class="snapshot" [src]="snapshotImg | safeUrl" (click)="openImage(snapshotImg)"/>
         </div>
@@ -193,3 +193,7 @@
     <span class="fa fa-search small" (click)="setActiveMenu(6)"></span>
   </p>
 </footer>
+
+<app-viewer>
+  <img [src]="displayedImage | safeUrl" class="snapshotBig">
+</app-viewer>

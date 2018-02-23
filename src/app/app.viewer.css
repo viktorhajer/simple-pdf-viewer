@@ -1,0 +1,22 @@
+.modalBackground {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.modalWindow {
+  text-align: center;
+  padding: 30px;
+  border-radius: 5px;
+  z-index: 1001;
+  margin: 0 auto;
+}
+
+.modalWindow p  {
+  color: white;
+}

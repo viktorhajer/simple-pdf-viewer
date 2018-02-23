@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { SimplePdfViewerComponent } from '../../libs/simple-pdf-viewer/src/simplePdfViewer.component';
 import { SimpleProgressData, SimplePDFBookmark } from '../../libs/simple-pdf-viewer/src/simplePdfViewer.models';
+import { ViewerComponent } from './app.viewer';
 
 const OUTLINE_MENU = 2;
 
@@ -17,6 +18,7 @@ export class AppComponent {
   errorMsg = '';
   bookmarks: SimplePDFBookmark[] = [];
   snapshots: string[] = [];
+  displayedImage: string = '';
 
   urlBox: any;
   firstPageBox: any;
@@ -26,6 +28,7 @@ export class AppComponent {
   searchBox: any;
 
   @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
+  @ViewChild(ViewerComponent) private imgViewer: ViewerComponent;
 
   isActiveMenu(menu: number): boolean {
     return this.menu === menu && (this.pdfViewer.isDocumentLoaded() || menu === 1);
@@ -76,8 +79,8 @@ export class AppComponent {
     })
   }
 
-  createSnapshot() {
-    this.pdfViewer.createSnapshot().then(snapshot => {
+  getPageSnapshot() {
+    this.pdfViewer.getPageSnapshot().then(snapshot => {
       if(snapshot) {
         this.snapshots.push(URL.createObjectURL(snapshot));
       }
@@ -85,7 +88,8 @@ export class AppComponent {
   }
 
   openImage(url: string) {
-    window.open(url);
-    return true;
+    this.displayedImage = url;
+    this.imgViewer.show();
+    //window.open(url);
   }
 }

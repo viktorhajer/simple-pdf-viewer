@@ -920,12 +920,13 @@ export class SimplePdfViewerComponent implements OnInit {
 
   /**
    * Create a createSnapshot PNG file based on the actual rotation and zoom
+   * @param scale the value of the viewport scale, it is 1 by default
    */
-  public createSnapshot(): Promise<File> {
+  public getPageSnapshot(zoom: number = 1): Promise<File> {
     if (this.isDocumentLoaded()) {
       const pagePromise = <Promise<PDF.PDFPageProxy>><any>this.pdf.getPage(this.currentPage);
       return pagePromise.then((page: PDF.PDFPageProxy) => {
-        const viewport = page.getViewport(this.zoom, this.rotation);
+        const viewport = page.getViewport(zoom, 0);
         const canvas = <HTMLCanvasElement><any>document.createElement('canvas');
         const context = canvas.getContext('2d');
         canvas.height = viewport.height;
