@@ -43,6 +43,10 @@ This is a simple but smart PDF Viewer component for angular/ionic websites.
 ### Type Documentation
 [https://github.com/viktorhajer/simple-pdf-viewer/wiki/API-Documentation](https://github.com/viktorhajer/simple-pdf-viewer/wiki/API-Documentation)
 
+### Screenshot
+
+<img src="/src/assets/screen_1.png" alt="Screenshot" style="width: 100px;"/>
+
 ### Contribute
 [See CONTRIBUTING.md](CONTRIBUTING.md)
 
