@@ -158,7 +158,7 @@
 
   <!-- Simple PDF Viewer Container -->
   <section id="viewer">
-    <simple-pdf-viewer #pdfViewer [src]="src" 
+    <simple-pdf-viewer #pdfViewer [src]="src" [removePageBorders]="false"
       (onError)="onError($event)" (onProgress)="onProgress($event)" (onLoadComplete)="onLoadComplete()">
     </simple-pdf-viewer>
     <div *ngIf="!pdfViewer.isDocumentLoaded()" class="infoBox">

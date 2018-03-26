@@ -299,6 +299,11 @@ export class SimplePdfViewerComponent implements OnInit {
    */
   @Input() src: string | Uint8Array | PDF.PDFSource;
 
+  /**
+   * Page border is displayed or not (Optional)
+   */
+  @Input() removePageBorders: boolean = false;
+
   @Output('onLoadComplete') onLoadComplete = new EventEmitter<void>();
   @Output('onError') onError = new EventEmitter<any>();
   @Output('onProgress') onProgress = new EventEmitter<SimpleProgressData>();
@@ -401,7 +406,7 @@ export class SimplePdfViewerComponent implements OnInit {
 
     this.pdfViewer = new (<any>PDFJS).PDFSinglePageViewer({
       container: container,
-      removePageBorders: false,
+      removePageBorders: this.removePageBorders,
       linkService: this.pdfLinkService,
     });
     this.pdfLinkService.setViewer(this.pdfViewer);
