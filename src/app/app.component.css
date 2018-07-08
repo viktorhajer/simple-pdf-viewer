@@ -17,7 +17,6 @@ main {
   width: 70px;
   height: 100%;
   background: #354052;
-  overflow-y: auto;
 }
 .menuItem {
   text-align: center;
@@ -50,6 +49,12 @@ main {
   width: calc(80vw - 70px - 400px);
   background: #354052;
   padding: 0 20px;
+}
+.infoBox {
+  color: #47bac1;
+  line-height: 80vh;
+  text-align: center;
+  font-weight: bold;
 }
 
 #toolbar {
