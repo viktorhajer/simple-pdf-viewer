@@ -1,44 +1,60 @@
-<header>
-  <div class="line"><p>Created by Viktor Hajer</p></div>
-  <div class="flex-container">
-    <img src="assets/icon.png" />
-    <h1>Simple PDF Viewer</h1>
-  </div>
-</header>
 
 <main>
-  <section id="tools">
 
-    <!-- Main Menu -->
-    <div id="mainMenu">
-      <div *ngIf="!backButtonVisible">
-        <div class="mainMenuItem" [class.active]="isActiveMenu(1)" (click)="setActiveMenu(1)">Document</div>
-        <div *ngIf="pdfViewer.isDocumentLoaded()">
-          <div class="mainMenuItem" [class.active]="isActiveMenu(7)" (click)="setActiveMenu(7)">Information</div>
-          <div class="mainMenuItem" [class.active]="isActiveMenu(2)" (click)="setActiveMenu(2)">Table of Content</div>
-          <div class="mainMenuItem" [class.active]="isActiveMenu(3)" (click)="setActiveMenu(3)">Navigation</div>
-          <div class="mainMenuItem" [class.active]="isActiveMenu(4)" (click)="setActiveMenu(4)">Zooming</div>
-          <div class="mainMenuItem" [class.active]="isActiveMenu(5)" (click)="setActiveMenu(5)">Rotation</div>
-          <div class="mainMenuItem" [class.active]="isActiveMenu(6)" (click)="setActiveMenu(6)">Searching</div>
-          <div class="mainMenuItem" [class.active]="isActiveMenu(8)" (click)="setActiveMenu(8)">Bookmarks</div>
-          <div class="mainMenuItem" [class.active]="isActiveMenu(9)" (click)="setActiveMenu(9)">Snapshots</div>
+  <div id="content">
+    <section id="menu">
+      <div class="menuItem" [class.active]="isActiveMenu(1)" (click)="setActiveMenu(1)">
+        <div class="icon fa fa-file"></div>
+        <div class="title">Document</div>
+      </div>
+      <div *ngIf="pdfViewer.isDocumentLoaded()">
+        <div class="menuItem" [class.active]="isActiveMenu(7)" (click)="setActiveMenu(7)">
+            <div class="icon fa fa-info-circle"></div>
+            <div class="title">Information</div>
+        </div>
+        <div class="menuItem" [class.active]="isActiveMenu(2)" (click)="setActiveMenu(2)">
+            <div class="icon fa fa-th-list"></div>
+            <div class="title">Table of Content</div>
+        </div>
+        <div class="menuItem" [class.active]="isActiveMenu(3)" (click)="setActiveMenu(3)">
+            <div class="icon fa fa-angle-double-right"></div>
+            <div class="title">Navigation</div>
+        </div>
+        <div class="menuItem" [class.active]="isActiveMenu(4)" (click)="setActiveMenu(4)">
+            <div class="icon fa fa-search-plus"></div>
+            <div class="title">Zooming</div>
+        </div>
+        <div class="menuItem" [class.active]="isActiveMenu(5)" (click)="setActiveMenu(5)">
+            <div class="icon fa fa-rotate-left"></div>
+            <div class="title">Rotation</div>
+        </div>
+        <div class="menuItem" [class.active]="isActiveMenu(6)" (click)="setActiveMenu(6)">
+            <div class="icon fa fa-search"></div>
+            <div class="title">Searching</div>
+        </div>
+        <div class="menuItem" [class.active]="isActiveMenu(8)" (click)="setActiveMenu(8)">
+            <div class="icon fa fa-bookmark"></div>
+            <div class="title">Bookmarks</div>
+        </div>
+        <div class="menuItem" [class.active]="isActiveMenu(9)" (click)="setActiveMenu(9)">
+            <div class="icon fa fa-image"></div>
+            <div class="title">Snapshots</div>
         </div>
       </div>
-      <div *ngIf="backButtonVisible">
-        <div class="mainMenuItem" [class.active]="isActiveMenu(1)" (click)="setActiveMenu(1)"><span class="fa fa-angle-double-left"></span>Back</div>
-      </div>
-    </div>
-
-    <!-- Sub Menus -->
-    <div id="subMenus">
+    </section>
+  
+    <section id="toolbar">
+      
       <!-- Document -->
       <div class="subMenu" [hidden]="!isActiveMenu(1)">
-          <div class="subMenuItem" (click)="urlField.click()">Open Document...</div>
+          <p class="normal">Open document from local file system:</p>
+          <div class="subMenuItem" (click)="urlField.click()">Browse...</div>
           <input style="display: none;" #urlField type="file" (change)="openDocument(urlField.files)" accept="application/pdf">
-          <p class="normal">or</p>
+          <p class="normal">or put the URL</p>
           <input type="input" [(ngModel)]="urlBox" (keyup.enter)="openUrl(urlBox)" placeholder="Type a URL...">
-          <div class="subMenuItem" (click)="openUrl(urlBox)">Open URL</div>
+          <div class="subMenuItem" (click)="openUrl(urlBox)">Open</div>
       </div>
+      
       <!-- Table of Content -->
       <div class="subMenu" [hidden]="!isActiveMenu(2)">
         <div class="outline" *ngIf="pdfViewer.hasOutline()">
@@ -56,28 +72,27 @@
           Outline is not defined.
         </p>
       </div>
+
       <!-- Navigation -->
       <div class="subMenu" [hidden]="!isActiveMenu(3)">
         <div class="subMenuItemGroup">
           <div class="subMenuItem" (click)="pdfViewer.firstPage()">First Page</div>
           <div class="subMenuItem" (click)="pdfViewer.lastPage()">Last Page</div>
-          <div class="clear"></div>
         </div>
           <div class="subMenuItemGroup">
           <div class="subMenuItem" (click)="pdfViewer.prevPage()">Previous Page</div>
           <div class="subMenuItem" (click)="pdfViewer.nextPage()">Next Page</div>
-          <div class="clear"></div>
         </div>
         <div class="subMenuItemGroup">
           <input class="small" type="number" pattern="-?[0-9]*(\.[0-9]+)?" [(ngModel)]="pageBox" size="5" (keyup.enter)="pdfViewer.navigateToPage(pageBox)" placeholder="Page..">
           <div class="subMenuItem fa fa-search" (click)="pdfViewer.navigateToPage(pageBox)"></div>
-          <div class="clear"></div>
         </div>
         <p>
           Number of Pages: {{pdfViewer.getNumberOfPages()}} <br/> 
           Actual page: {{pdfViewer.getCurrentPage()}}
         </p>
       </div>
+
       <!-- Zooming -->
       <div class="subMenu" [hidden]="!isActiveMenu(4)">
         <div class="subMenuItemGroup">
@@ -85,49 +100,46 @@
           <div class="subMenuItem" (click)="pdfViewer.setZoom(0.5)">50%</div>
           <div class="subMenuItem" (click)="pdfViewer.zoomReset()">100%</div>
           <div class="subMenuItem" (click)="pdfViewer.zoomOut()">Out</div>
-          <div class="clear"></div>
         </div>
         <div class="subMenuItemGroup">
           <div class="subMenuItem" (click)="pdfViewer.zoomPageWidth()">Width</div>
           <div class="subMenuItem" (click)="pdfViewer.zoomFullPage()">Full</div>
           <div class="subMenuItem" (click)="pdfViewer.zoomPageHeight()">Height</div>
-          <div class="clear"></div>
         </div>
           <div class="subMenuItemGroup">
             <input class="small" type="number" pattern="-?[0-9]*(\.[0-9]+)?" [(ngModel)]="zoomBox" size="5" (keyup.enter)="pdfViewer.setZoomInPercent(zoomBox)" placeholder="Zoom...">
             <div class="subMenuItem fa fa-search" (click)="pdfViewer.setZoomInPercent(zoomBox)"></div>
-            <div class="clear"></div>
           </div>
           <p>
             Actual zoom value: {{pdfViewer.getZoomPercent()}} % <br/>
             Constraint: 5% <= Zoom <= 500%
           </p>
       </div>
+
       <!-- Rotation -->
       <div class="subMenu" [hidden]="!isActiveMenu(5)">
         <div class="subMenuItemGroup">
           <div class="subMenuItem" (click)="pdfViewer.turnLeft()"><span class="fa fa-rotate-left"></span></div>
           <div class="subMenuItem" (click)="pdfViewer.resetRotation()">Reset</div>
           <div class="subMenuItem" (click)="pdfViewer.turnRight()"><span class="fa fa-rotate-right"></span></div>
-          <div class="clear"></div>
         </div>
         <p>Actual rotation: {{pdfViewer.getRotation()}} &deg;</p>
       </div>
+
       <!-- Searching -->
       <div class="subMenu" [hidden]="!isActiveMenu(6)">
         <div class="subMenuItemGroup">
           <input type="input" [(ngModel)]="searchBox" (keyup.enter)="pdfViewer.search(searchBox)" placeholder="Type...">
           <div class="subMenuItem fa fa-search" (click)="pdfViewer.search(searchBox)"></div>
-          <div class="clear"></div>
         </div>
         <div class="subMenuItemGroup" *ngIf="pdfViewer.hasMatches()">
           <div class="subMenuItem" (click)="pdfViewer.previousMatch()">Previous</div>
           <div class="subMenuItem" (click)="pdfViewer.nextMatch()">Next</div>
-          <div class="clear"></div>
         </div>
         <p *ngIf="!pdfViewer.isSearching()">Number of matches: {{pdfViewer.getNumberOfMatches()}}</p>
         <p *ngIf="pdfViewer.isSearching()">Searching...</p>
       </div>
+
       <!-- Information -->
       <div class="subMenu" [hidden]="!isActiveMenu(7)">
           <div class="outline">
@@ -137,6 +149,7 @@
             </ul>
           </div>
       </div>
+
       <!-- Bookmarks -->
       <div class="subMenu" [hidden]="!isActiveMenu(8)">
         <div class="subMenuItem" (click)="createBookmark()">Create Bookmark</div>
@@ -145,6 +158,7 @@
           <span class="small_text">{{bookmark.toQueryString()}}</span>
         </div>
       </div>
+
       <!-- Snapshots -->
       <div class="subMenu" [hidden]="!isActiveMenu(9)">
         <div class="subMenuItem" (click)="getPageSnapshot()">Create Snapshot</div>
@@ -152,47 +166,21 @@
           <img *ngFor="let snapshotImg of snapshots" class="snapshot" [src]="snapshotImg | safeUrl" (click)="openImage(snapshotImg)"/>
         </div>
       </div>
-    </div>
 
-  </section>
-
-  <!-- Simple PDF Viewer Container -->
-  <section id="viewer">
-    <simple-pdf-viewer #pdfViewer [src]="src" [removePageBorders]="false"
-      (onError)="onError($event)" (onProgress)="onProgress($event)" (onLoadComplete)="onLoadComplete()">
-    </simple-pdf-viewer>
-    <div *ngIf="!pdfViewer.isDocumentLoaded()" class="infoBox">
-      <div class="fa fa-circle-o-notch fa-spin" *ngIf="!errorMsg"></div>
-      <div class="errorMsg" *ngIf="errorMsg">{{errorMsg}}</div>
-    </div>
-  </section>
+    </section>
+  
+    <!-- Simple PDF Viewer Container -->
+    <section id="viewer">
+      <simple-pdf-viewer #pdfViewer [src]="src" [removePageBorders]="false"
+        (onError)="onError($event)" (onProgress)="onProgress($event)" (onLoadComplete)="onLoadComplete()">
+      </simple-pdf-viewer>
+      <div *ngIf="!pdfViewer.isDocumentLoaded()" class="infoBox">
+        <div class="fa fa-circle-o-notch fa-spin" *ngIf="!errorMsg"></div>
+        <div class="errorMsg" *ngIf="errorMsg">{{errorMsg}}</div>
+      </div>
+    </section>
+  </div>
 </main>
-
-<footer>
-  <p *ngIf="pdfViewer.isDocumentLoaded()">
-    <span class="fa fa-folder-open small" (click)="urlField.click()"></span>
-    |
-    <span class="fa fa-angle-double-left" (click)="pdfViewer.firstPage()"></span>
-    <span class="fa fa-angle-left" (click)="pdfViewer.prevPage()"></span>
-    {{pdfViewer.getCurrentPage() + ' / ' + pdfViewer.getNumberOfPages()}} 
-    <span class="fa fa-angle-right" (click)="pdfViewer.nextPage()"></span>
-    <span class="fa fa-angle-double-right" (click)="pdfViewer.lastPage()"></span>
-    |
-    <span class="fa fa-plus-circle small" (click)="pdfViewer.zoomIn()"></span>
-    {{pdfViewer.getZoomPercent()}}%
-    <span class="fa fa-minus-circle small" (click)="pdfViewer.zoomOut()"></span>
-    <span class="fa fa-arrows-alt small" (click)="pdfViewer.zoomFullPage()"></span>
-    <span class="fa fa-arrows-h small" (click)="pdfViewer.zoomPageWidth()"></span>
-    <span class="fa fa-arrows-v small" (click)="pdfViewer.zoomPageHeight()"></span>
-    | 
-    <span class="fa fa-rotate-left small" (click)="pdfViewer.turnLeft()"></span>
-    {{pdfViewer.getRotation()}}&deg;
-    <span class="fa fa-rotate-right small" (click)="pdfViewer.turnRight()"></span>
-    |
-    <span class="fa fa-align-left small" (click)="setActiveMenu(2)"></span>
-    <span class="fa fa-search small" (click)="setActiveMenu(6)"></span>
-  </p>
-</footer>
 
 <app-viewer>
   <img [src]="displayedImage | safeUrl" class="snapshotBig">

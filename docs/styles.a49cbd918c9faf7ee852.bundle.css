@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */*{font-family:Arial,Helvetica,sans-serif}body{margin:0;padding:0}.clear{clear:both}.left{float:left}.right{float:right}.flex-container{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:normal;-ms-flex-pack:normal;justify-content:normal;-webkit-box-align:normal;-ms-flex-align:normal;align-items:normal}input:focus,textarea:focus{outline:none}
 
-/* width */::-webkit-scrollbar{width:7px}
+/* width */::-webkit-scrollbar{width:7px;height:7px}
 
 /* Track */::-webkit-scrollbar-track{background:#fff;border:.5px solid #aaa}
 

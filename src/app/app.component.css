@@ -1,273 +1,129 @@
-header {
-  height: 85px;
-  border-bottom: 1px solid #000000;
+main {
+  background: black url("/assets/background.png") no-repeat;
+  background-size: cover  ;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#content {
+  width: 80vw;
+  height: calc(100vh - 200px);
+  display: flex;
+  flex-flow: row;
+}
+#menu {
+  width: 70px;
+  height: 100%;
+  background: #354052;
+  overflow-y: auto;
+}
+.menuItem {
+  text-align: center;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  color: #8893a6;
+  cursor: pointer;
+}
+.menuItem .icon {
+  font-size: 22px;
+}
+.menuItem .title {
+  font-size: 10px;
+} 
+.menuItem.active, .menuItem.active:hover, .subMenu .subMenuItem:hover {
+  background: #47bac1;
+  border-color: #47bac1;
+  color: white;
+}
+.menuItem:hover {
+  color: #47bac1;
 }
 
-header, footer {
-  width: 100%;
-  background: linear-gradient(#404040, #303030);
-  background: #404040;
+#viewer {
+  height: 100%;
+  width: calc(80vw - 70px - 400px);
+  background: #354052;
+  padding: 0 20px;
 }
 
-header .line {
-  width: 100%;
-  height: 20px;
-  background: #606060; 
-}
-
-header .line p {
-  margin: 0;
-  padding: 4px 10px 0 10px;
+#toolbar {
+  width: 400px;
+  height: calc(100% - 40px);
+  background: white;
+  padding: 20px;
   font-size: 11px;
   font-weight: bold;
-  float: right;
-  color: rgba(255,255,255,0.5);
-}
-
-header h1 {
-  font-weight: normal;
-  font-size: 18px;
-  letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.96);
-  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-  margin: 22px 0;
-}
-
-header img {
-  margin: 0 15px 0 20px;
-}
-
-main {
-  width: 100%;
-  height: calc(100vh - 85px - 50px - 2px);
-  background: radial-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3));
-}
-
-main #tools {
-  width: 20vw;
-  height: calc(88vh - 85px - 50px - 2px);
+  color: #8893a6;
   overflow-y: auto;
-  padding: 6vh 1vw;
-  background: rgb(30,30,30);
-  float: left;
 }
 
-main #tools #mainMenu .mainMenuItem {
-  color: #808080;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 1px;
-  padding: 0 15px;
-  text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
-  cursor: pointer;
-  margin: 8px 0;
+.subMenu .subMenuItemGroup {
+  display: flex;
 }
-
-main #tools #mainMenu .active {
-  border-left: 3px solid rgba(255, 255, 255, 0.96);
-  color: rgba(255, 255, 255, 0.96);
-  cursor: default;
-  padding: 0 12px;
+.subMenu .subMenuItemGroup .subMenuItem, .subMenu .subMenuItemGroup input {
+  margin: 10px 10px 0 0;
 }
-main #tools #mainMenu .mainMenuItem:hover {
-  color: #346680;
-}
-main #tools #mainMenu .active:hover {
-  color: rgba(255, 255, 255, 0.96);
-}
-main #tools #subMenus {
-  margin: 40px 0 0 20px;
-}
-main #tools #subMenus .subMenuItemGroup {
-  font-size: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.96);
-  border-radius: 18px;
-  cursor: pointer;
+.subMenu .subMenuItem, .subMenu input {
+  border: 2px solid #8893a6;
+  border-radius: 5px;
+  padding: 4px 6px;
   margin: 10px 0 0 0;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
   background: white;
   width: fit-content;
+  font-size: 11px;
+  font-weight: bold;
+  color: #8893a6;
 }
-main #tools #subMenus .subMenuItemGroup .subMenuItem, 
-main #tools #subMenus .subMenuItemGroup input {
-  float: left;
-  padding: 8px 12px;
-  margin: 0;
-}
-main #tools #subMenus .subMenuItemGroup input {
-  background: none;
-  color: #262626;
-  font-weight: normal;
-  text-shadow: none;
-}
-main #tools #subMenus .subMenuItemGroup .small {
-  width: 50px;
-}
-main #tools #subMenus .subMenuItem,
-main #tools #subMenus input {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.96);
-  border: 2px solid rgba(255, 255, 255, 0.96);
-  border-radius: 18px;
+.subMenu .subMenuItem {
   cursor: pointer;
-  padding: 8px 12px;
-  margin: 10px 0 0 0;
-  width: fit-content;
-  max-width: 200px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
-  background: #262626;
-}
-main #tools #subMenus input {
-  cursor: text;
-  max-width: 150px;
-}
-main #tools #subMenus .subMenuItem:hover {
-  background: #346680;
-}
-main #tools #subMenus .subMenu p {
-  color: #346680;
-  border: 2px solid #346680;
-  border-radius: 18px;
-  font-size: 12px;
-  font-weight: bold;
-  width: fit-content;
-  max-width: 200px;
-  padding: 8px 12px;
-  line-height: 22px;
-}
-
-main #tools #subMenus .subMenu p.normal {
-  color: rgba(255, 255, 255, 0.96);
-  border: none;
-  font-size: 14px;
-  font-weight: bold;
-  width: fit-content;
-  max-width: 200px;
-  padding: 2px 12px;
-  line-height: 22px;
-}
-
-.mainMenuItem, .subMenuItem {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.mainMenuItem span, .subMenuItem span {
-  font-size: 18px;
-  padding: 0 6px;
-  font-weight: bold;
-}
-
-.subMenuItem span.small_text {
-  font-size: 10px;
-  padding: 0;
-  font-weight: normal;
-  color: #aaaaaa;
-  word-wrap: break-word;
-  user-select: text;
-  cursor: text;
-}
-
-main #viewer {
-  height: 100%;
-  width: 73vw;
-  float: left;
-}
-
-main #viewer .infoBox {
-  color: #346680;
-  line-height: 80vh;
-  text-align: center;
-  font-weight: bold;
-}
-main #viewer .fa {
-  font-size: 22px;
-  line-height: normal;
-}
-main #viewer .errorMsg {
-  font-size: 16px;
-  line-height: 80vh;
-}
-
-footer {
-  height: 50px;
-  border-top: 1px solid #000000;
-  user-select: none;
-}
-
-footer p {
-  text-align: center;
-  font-weight: normal;
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 3px rgba(0,0,0,0.5);
-  cursor: default;
-}
-
-footer p span {
-  font-size: 16px;
-  cursor: pointer;
-}
-
-footer p span.small {
-  font-size: 12px;
 }
 
 .outline {
   margin: 0;
   padding: 0;
-  color: #aaaaaa;
-  overflow: auto;
-  height: calc(70vh - 210px);
 }
 .outline h2 {
   margin: 0 0 10px 0;
   padding: 0;
   font-weight: bold;
-  font-size: 18px;
-  color: #dddddd;
+  font-size: 16px;
+  color: black;
 }
 .outline ul {
   margin: 0;
   padding: 5px 1vw;
 }
 .outline li {
-  font-size: 14px;
+  font-size: 11px;
 }
 .outline .outline-main-item {
   font-weight: bold;
-  color: #dddddd;
+  color: black;
 }
 .outline a {
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   text-decoration: none;
 }
 .outline a:hover {
   color: #346680;
 }
-.snapshotsContainer {
-  margin: 10px 0 0 0;
-  overflow-y: auto;
-  height: 300px;
-}
 
 .snapshot {
   width: 30%;
   margin: 2px;
   cursor: pointer;
+  border: 1px solid #ddd;
 }
-
+.snapshotsContainer {
+  margin: 15px 0;
+}
 .snapshotBig {
   max-width: calc(100vw - 100px);
   max-height: calc(100vh - 100px);
