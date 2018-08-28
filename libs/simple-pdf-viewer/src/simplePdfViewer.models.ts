@@ -79,9 +79,6 @@ export class SimplePDFBookmark {
   public static buildSimplePDFBookmark(src: string): SimplePDFBookmark {
     if (src && typeof src === 'string' && src.trim().length > 0) {
       var parts = src.split(SimplePDFBookmark.PARAMETER_SEPARATOR);
-
-      console.log(parts);
-
       if (parts.length > 0) {
         const bookmark = new SimplePDFBookmark();
         parts.forEach(part => {
