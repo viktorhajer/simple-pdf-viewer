@@ -448,7 +448,9 @@ export class SimplePdfViewerComponent implements OnInit {
   private loadFile() {
     this.loaded = false;
     if (this.src) {
-
+      if (this.pdf) { 
+        this.pdf.destroy();
+      }
       let progressSrc: any;
       if (typeof this.src === 'string') {
         progressSrc = PDFJS.getDocument({url: this.src, withCredentials: true} as any);
