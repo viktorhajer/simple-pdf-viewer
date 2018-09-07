@@ -1,7 +1,7 @@
 /**
  * Created by Viktor Hajer on 02/08/2018.
  */
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SimpleSearchState, SimpleDocumentInfo, SimpleOutlineNode, SimpleProgressData, SimpleSearchOptions, SimplePDFBookmark } from './simplePdfViewer.models';
 import { PDFPromise } from 'pdfjs-dist';
@@ -281,7 +281,7 @@ if (typeof window !== 'undefined') {
   }  
   `]
 })
-export class SimplePdfViewerComponent implements OnInit {
+export class SimplePdfViewerComponent implements OnInit, OnDestroy {
 
   private static readonly CSS_UNITS: number = 96.0 / 72.0;
   private static readonly PAGE_RESIZE_BORDER_HEIGHT: number = 15;
@@ -340,6 +340,12 @@ export class SimplePdfViewerComponent implements OnInit {
       }
       this.initPDFJS();
       this.openDocument(this.src);
+    }
+  }
+
+  public ngOnDestroy() {
+    if (this.pdf) { 
+      this.pdf.destroy();
     }
   }
 
