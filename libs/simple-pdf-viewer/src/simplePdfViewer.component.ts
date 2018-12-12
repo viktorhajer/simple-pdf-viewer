@@ -305,7 +305,7 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
   @Input() removePageBorders: boolean = false;
 
   /**
-   * Page border is displayed or not (Optional)
+   * Text layer is displayed or not (Optional)
    */
   @Input() disableTextLayer: boolean = false;
 
