@@ -304,6 +304,11 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
    */
   @Input() removePageBorders: boolean = false;
 
+  /**
+   * Page border is displayed or not (Optional)
+   */
+  @Input() disableTextLayer: boolean = false;
+
   @Output('onLoadComplete') onLoadComplete = new EventEmitter<void>();
   @Output('onError') onError = new EventEmitter<any>();
   @Output('onProgress') onProgress = new EventEmitter<SimpleProgressData>();
@@ -317,7 +322,6 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
   private information: SimpleDocumentInfo[];
   private zoom: number = 1.0;
   private rotation: number = 0;
-  private disableTextLayer: boolean = false;
 
   private pdf: PDF.PDFDocumentProxy;
   private pdfLinkService: any;
