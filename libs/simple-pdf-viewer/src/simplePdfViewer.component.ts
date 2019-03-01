@@ -658,9 +658,6 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
   public search(text: string, searchOptions: SimpleSearchOptions = SimpleSearchOptions.DEFAULT_OPTIONS): void {
     if (this.isDocumentLoaded()) {
       const searchText = text ? text.trim() : '';
-      if (!searchText) {
-        return;
-      }
       this.lastSearchText = text;
       this.searchPrevious = false;
       this.searchOptions = searchOptions;
