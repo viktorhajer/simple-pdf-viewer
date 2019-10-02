@@ -348,7 +348,7 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    if (this.pdf) { 
+    if (this.pdf) {
       this.pdf.destroy();
     }
   }
@@ -458,7 +458,7 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
   private loadFile() {
     this.loaded = false;
     if (this.src) {
-      if (this.pdf) { 
+      if (this.pdf) {
         this.pdf.destroy();
       }
       let progressSrc: any;
@@ -842,9 +842,9 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
       if (this.currentPage <= 0) {
         this.currentPage = pageDefault ? pageDefault : 1;
       }
-      this.pdfViewer.scrollPageIntoView({
+      /*this.pdfViewer.scrollPageIntoView({
         pageNumber: this.currentPage
-      });
+      });*/
     }
   }
 
@@ -889,8 +889,8 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Creates bookmark object based on the current viewport and page number. 
-   * The object can be passed to the #navigateToBookmark method. 
+   * Creates bookmark object based on the current viewport and page number.
+   * The object can be passed to the #navigateToBookmark method.
    */
   public createBookmark(): Promise<SimplePDFBookmark> {
     if(!this.isDocumentLoaded()) {
@@ -952,7 +952,7 @@ export class SimplePdfViewerComponent implements OnInit, OnDestroy {
     }
     return Promise.reject('Document is not loaded');
   }
-    
+
   private dataURItoFile(dataURI: string): File {
     let byteString;
     if (dataURI.split(',')[0].indexOf('base64') >= 0) {
