@@ -39,12 +39,12 @@
   "homepage": "https://github.com/viktorhajer/simple-pdf-viewer#readme",
   "peerDependencies": {
     "@angular/core": ">=4.0.0",
-    "pdfjs-dist": "1.10.88",
+    "pdfjs-dist": "^2.4.456",
     "@types/pdfjs-dist": "^0.1.1"
   },
   "dependencies": {
     "@types/pdfjs-dist": "0.1.1",
-    "pdfjs-dist": "1.10.88"
+    "pdfjs-dist": "^2.4.456"
   },
   "devDependencies": {
     "@angular/animations": "^5.2.0",
